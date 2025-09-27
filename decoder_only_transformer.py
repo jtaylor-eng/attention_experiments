@@ -7,13 +7,17 @@ from dataclasses import dataclass
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
+from torch.nn.parallel import DistributedDataParallel as DDP
+from torch.utils.data.distributed import DistributedSampler
+import torch.distributed as dist
 from typing import Literal
 
-
 class DataLoader:
-    def __init__(self, data_path, block_size, batch_size, train_split=0.9):
+    def __init__(self, data_path, block_size, batch_size, train_split=0.9, rank=0, world_size=1):
         self.block_size = block_size
         self.batch_size = batch_size
+        self.rank = rank
+        self.world_size = world_size
         
         # Read and tokenize data
         with open(data_path, 'r', encoding='utf-8') as f:
@@ -41,6 +45,12 @@ class DataLoader:
     
     def get_batch(self, split):
         data = self.train_data if split == 'train' else self.val_data
+        
+        # For DDP, each process gets different random samples
+        if self.world_size > 1:
+            # Use rank-specific random seed for different samples per process
+            torch.manual_seed(42 + self.rank)
+        
         ix = torch.randint(len(data) - self.block_size, (self.batch_size,))
         x = torch.stack([data[i:i+self.block_size] for i in ix])
         y = torch.stack([data[i+1:i+self.block_size+1] for i in ix])
@@ -265,15 +275,44 @@ def setup_logging(log_file="log.txt"):
         format='%(asctime)s - %(levelname)s - %(message)s',
         handlers=[
             logging.FileHandler(log_file),
-            logging.StreamHandler()  # Also print to console
+            logging.StreamHandler()
         ]
     )
     return logging.getLogger(__name__)
 
+
+def setup_ddp():
+    """Initialize DDP process group"""
+    if 'RANK' in os.environ and 'WORLD_SIZE' in os.environ:
+        rank = int(os.environ['RANK'])
+        world_size = int(os.environ['WORLD_SIZE'])
+        local_rank = int(os.environ['LOCAL_RANK'])
+    else:
+        print('Not using distributed mode')
+        return False, 0, 1, 0
+    
+    dist.init_process_group(backend='nccl')
+    torch.cuda.set_device(local_rank)
+    
+    return True, rank, world_size, local_rank
+
+
+def cleanup_ddp():
+    """Cleanup DDP process group"""
+    if dist.is_initialized():
+        dist.destroy_process_group()
+
 if __name__ == '__main__':
-    # Setup logging
-    logger = setup_logging("log.txt")
-    logger.info("Starting training session")
+    # Setup DDP
+    is_ddp, rank, world_size, local_rank = setup_ddp()
+    
+    # Setup logging (only on rank 0 to avoid duplicate logs)
+    if rank == 0:
+        logger = setup_logging("log.txt")
+        logger.info("Starting training session")
+    else:
+        logger = logging.getLogger(__name__)
+        logger.setLevel(logging.INFO)
     
     SMALL_CFG = TransformerConfig(
         vocab_size=50257,  # Will be updated by DataLoader
@@ -284,37 +323,51 @@ if __name__ == '__main__':
     )
 
     compile_model = True
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = f'cuda:{local_rank}' if is_ddp else ('cuda' if torch.cuda.is_available() else 'cpu')
     torch.manual_seed(42)
     torch.cuda.manual_seed(42)
-    logger.info(f"Using device: {device}")
+    
+    if rank == 0:
+        logger.info(f"Using device: {device}")
+        logger.info(f"DDP enabled: {is_ddp}, World size: {world_size}")
 
     # Data loading
     data_path = 'tiny_shakespeare.txt'
     batch_size = 4
-    train_loader = DataLoader(data_path, SMALL_CFG.block_size, batch_size)
+    train_loader = DataLoader(data_path, SMALL_CFG.block_size, batch_size, rank=rank, world_size=world_size)
     
     # Update vocab size from actual data
     SMALL_CFG.vocab_size = train_loader.vocab_size
-    logger.info(f"Vocabulary size: {SMALL_CFG.vocab_size}")
+    if rank == 0:
+        logger.info(f"Vocabulary size: {SMALL_CFG.vocab_size}")
     
     # Model
     model = LM(config=SMALL_CFG).to(device)
-    logger.info('Compiling model')
+    
+    # Wrap model with DDP
+    if is_ddp:
+        model = DDP(model, device_ids=[local_rank], output_device=local_rank)
+        if rank == 0:
+            logger.info('Model wrapped with DDP')
+    
+    if rank == 0:
+        logger.info('Compiling model')
     if compile_model: 
         model = torch.compile(model)
-    logger.info('Model compiled')
+    if rank == 0:
+        logger.info('Model compiled')
 
     # Training hyperparameters
     max_lr = 3e-4
     min_lr = max_lr / 10
     warmup_steps = 10
     max_steps = 10000
-    checkpoint_steps = 100
+    checkpoint_steps = 1000
 
     # Optimizer
     optimizer = torch.optim.AdamW(model.parameters(), lr=max_lr, weight_decay=0.1)
-    logger.info(f"Training for {max_steps} steps with checkpointing every {checkpoint_steps} steps")
+    if rank == 0:
+        logger.info(f"Training for {max_steps} steps with checkpointing every {checkpoint_steps} steps")
 
     # Training loop
     model.train()
@@ -330,6 +383,12 @@ if __name__ == '__main__':
         # Backward pass
         optimizer.zero_grad()
         loss.backward()
+        
+        # DDP synchronization
+        if is_ddp:
+            dist.all_reduce(loss, op=dist.ReduceOp.SUM)
+            loss = loss / world_size
+        
         optimizer.step()
         
         # Learning rate scheduling
@@ -337,17 +396,19 @@ if __name__ == '__main__':
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
         
-        # Logging
-        if step % 100 == 0:
+        # Logging (only on rank 0)
+        if step % 100 == 0 and rank == 0:
             logger.info(f"Step {step}: loss = {loss.item():.4f}, lr = {lr:.6f}")
         
-        # Checkpointing
-        if step % checkpoint_steps == 0 and step > 0:
-            checkpoint_path = save_checkpoint(model, optimizer, step, loss.item())
+        # Checkpointing (only on rank 0)
+        if step % checkpoint_steps == 0 and step > 0 and rank == 0:
+            # Get the underlying model for checkpointing
+            model_to_save = model.module if is_ddp else model
+            checkpoint_path = save_checkpoint(model_to_save, optimizer, step, loss.item())
             logger.info(f"Checkpoint saved: {checkpoint_path}")
         
-        # Validation
-        if step % 500 == 0 and step > 0:
+        # Validation (only on rank 0)
+        if step % 500 == 0 and step > 0 and rank == 0:
             model.eval()
             with torch.no_grad():
                 val_xb, val_yb = train_loader.get_batch('val')
@@ -363,7 +424,12 @@ if __name__ == '__main__':
                 logger.info(f"Generated text: {generated_text[:200]}")
             model.train()
     
-    # Final checkpoint
-    final_checkpoint_path = save_checkpoint(model, optimizer, max_steps, loss.item())
-    logger.info(f"Final checkpoint saved: {final_checkpoint_path}")
-    logger.info("Training completed!")
+    # Final checkpoint (only on rank 0)
+    if rank == 0:
+        model_to_save = model.module if is_ddp else model
+        final_checkpoint_path = save_checkpoint(model_to_save, optimizer, max_steps, loss.item())
+        logger.info(f"Final checkpoint saved: {final_checkpoint_path}")
+        logger.info("Training completed!")
+    
+    # Cleanup DDP
+    cleanup_ddp()
