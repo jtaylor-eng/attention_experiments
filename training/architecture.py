@@ -1,3 +1,4 @@
+#Language model architecture for experiments: Typical decoder only transformer using RoPE, layernorm.
 import os
 import math
 import time

@@ -1,4 +1,0 @@
- - better logging
- - implement DDP
- - seperate files (train loop, nn.Module subclasses, utils, dataloading)
- - consider fp precision

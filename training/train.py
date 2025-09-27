@@ -1,3 +1,4 @@
+#Training loop
 import os
 import math
 import time
