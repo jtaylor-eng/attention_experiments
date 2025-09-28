@@ -12,6 +12,8 @@
  - [x] seperate files / better repo structure (train loop, architecture, utils,  experiments, logging)
  - [x] fix logging pathing (sbatch)
  - [x] support train & val splits with c4 dataloader
+ - [x] support different softmax implementations / alternatives
+ - [ ] translate train.py globals to use command line arguments
  - [ ] fix DDP
  - [ ] consider fp precision for fast train / inference
-
+ - [ ] KV caching inside LM.generate

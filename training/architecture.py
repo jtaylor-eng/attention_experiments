@@ -79,6 +79,7 @@ class MLP(nn.Module):
 class MHA(nn.Module):
     def __init__(self, config, rope):
         super().__init__()
+        self.config = config
         self.rope = rope
         self.num_heads = config.num_heads
         self.head_dim = config.dim_emb // config.num_heads
@@ -102,7 +103,7 @@ class MHA(nn.Module):
         # Causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
         att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
         att = att.masked_fill(torch.tril(torch.ones(T, T, device=x.device)) == 0, float('-inf'))
-        att = F.softmax(att, dim=-1)
+        att = self.config.softmax_implementation.translate_logits(att, dim=-1)
         
         # Apply attention to values
         y = att @ v  # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)

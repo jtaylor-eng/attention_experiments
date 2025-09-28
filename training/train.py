@@ -14,12 +14,15 @@ import torch.distributed as dist
 from typing import Literal
 
 import utils
+from softmax_fns import *
 from architecture import LM
 
 #TODO: probably best transferred to command line args at some point
 #Set to True to run training loop with ../data/tiny_shakespeare.txt
 TEST_RUN = False
 COMPILE_MODEL = True
+
+SOFTMAX_IMPLEMENTATION: Literal[TraditionalSoftmax,AdaptiveSoftmax,TopKSoftmax] = TopKSoftmax()
 
 if TEST_RUN:
     #no ddp for test run
@@ -30,6 +33,7 @@ if TEST_RUN:
         num_layers=4,
         num_heads=4,
         dim_emb=128,
+        softmax_implementation=SOFTMAX_IMPLEMENTATION,
     )
 
     DATA_LOADER = utils.DataLoaderTxt(
@@ -53,6 +57,7 @@ else:
         num_layers=12,
         num_heads=12,
         dim_emb=768,
+        softmax_implementation=SOFTMAX_IMPLEMENTATION,
     )
     
     DATA_LOADER = utils.DataLoader(

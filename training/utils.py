@@ -16,6 +16,7 @@ import numpy as np
 from abc import ABC, abstractmethod
 from transformers import LlamaTokenizer
 
+from softmax_fns import CustomSoftmaxFn
 
 # --- TOKENIZATION ---
 #provides uniform handling for various tokenizers
@@ -161,6 +162,7 @@ class TransformerConfig:
     num_layers: int
     num_heads: int
     dim_emb: int
+    softmax_implementation: CustomSoftmaxFn
     mlp_dropout: float = 0.0
     rope_theta: float = 10000.0
 

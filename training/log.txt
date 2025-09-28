@@ -2103,3 +2103,599 @@ To are tongue is
 2025-09-28 01:06:29,279 - INFO - Step 0: loss = 10.5544, lr = 0.000000
 2025-09-28 01:08:29,207 - INFO - Step 100: loss = 6.4805, lr = 0.000240
 2025-09-28 01:08:37,601 - INFO - Validation loss: 6.2953
+2025-09-28 16:13:09,713 - INFO - Starting training session
+2025-09-28 16:13:09,908 - INFO - Using device: cuda
+2025-09-28 16:13:09,909 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:13:10,243 - INFO - Model has: 798529 parameters
+2025-09-28 16:13:10,243 - INFO - Compiling model
+2025-09-28 16:13:13,699 - INFO - Model compiled
+2025-09-28 16:13:13,699 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:13:13,699 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:13:47,914 - INFO - Starting training session
+2025-09-28 16:13:48,144 - INFO - Using device: cuda
+2025-09-28 16:13:48,144 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:13:48,381 - INFO - Model has: 798529 parameters
+2025-09-28 16:13:48,382 - INFO - Compiling model
+2025-09-28 16:13:50,372 - INFO - Model compiled
+2025-09-28 16:13:50,373 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:13:50,373 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:14:15,991 - INFO - Step 0: loss = 4.1643, lr = 0.000000
+2025-09-28 16:14:19,611 - INFO - Step 100: loss = 2.8328, lr = 0.000240
+2025-09-28 16:14:29,502 - INFO - Validation loss: 2.7555
+2025-09-28 16:14:30,705 - INFO - Generated text: Why is d
+3u aeafnte Dy tnTmgothuared tharnd he berecsn,
+
+He thme o-cAnd KlapOEClers wI s, oreanptsAne u.WtI
+2025-09-28 16:14:34,349 - INFO - Step 200: loss = 2.3086, lr = 0.000480
+2025-09-28 16:14:34,352 - INFO - Validation loss: 2.3028
+2025-09-28 16:14:34,652 - INFO - Generated text: Why is cod ninde evem thang mang yof weps
+bell angeanter ur that ghe me mach nof shaist dis theis wurore ce
+2025-09-28 16:14:38,315 - INFO - Step 300: loss = 2.0432, lr = 0.000600
+2025-09-28 16:14:38,318 - INFO - Validation loss: 2.0168
+2025-09-28 16:14:38,620 - INFO - Generated text: Why is as ing crome,
+Thes nementsem to the 'ell; hy in that well Bevent-;
+Whou sperve sher stall seed wella
+2025-09-28 16:14:42,264 - INFO - Step 400: loss = 1.8155, lr = 0.000600
+2025-09-28 16:14:42,266 - INFO - Validation loss: 1.8334
+2025-09-28 16:14:42,569 - INFO - Generated text: Why is me of that wrear
+To dike, wpele entence; on thee that that were and the griven,
+The mine of shour pa
+2025-09-28 16:14:46,192 - INFO - Step 500: loss = 1.6734, lr = 0.000599
+2025-09-28 16:14:46,194 - INFO - Validation loss: 1.9128
+2025-09-28 16:14:46,496 - INFO - Generated text: Why is whace now this stand:
+Thy streaks and now see Richardss to to my lords.
+
+GLEENTUS:
+O will and not ha
+2025-09-28 16:14:50,111 - INFO - Step 600: loss = 1.6488, lr = 0.000598
+2025-09-28 16:14:50,113 - INFO - Validation loss: 1.8825
+2025-09-28 16:14:50,414 - INFO - Generated text: Why is lesse.
+
+KING RICHARD III:
+My may's did sistly, souble worthy anstreast
+The asare and his forforcess;
+2025-09-28 16:14:54,049 - INFO - Step 700: loss = 1.5715, lr = 0.000597
+2025-09-28 16:14:54,052 - INFO - Validation loss: 1.7980
+2025-09-28 16:14:54,351 - INFO - Generated text: Why is my rings,
+What counto and the sir.
+
+WARWICK:
+The settle not unforce, ab leave, to crust England;
+Tha
+2025-09-28 16:14:57,992 - INFO - Step 800: loss = 1.5411, lr = 0.000596
+2025-09-28 16:14:57,994 - INFO - Validation loss: 1.7335
+2025-09-28 16:14:58,297 - INFO - Generated text: Why is all heep.
+
+PEGRUT:
+Here venory good command thee stars?
+
+JULIET:
+The bear disquains offence the doth
+2025-09-28 16:15:01,941 - INFO - Step 900: loss = 1.5308, lr = 0.000594
+2025-09-28 16:15:01,943 - INFO - Validation loss: 1.5462
+2025-09-28 16:15:02,245 - INFO - Generated text: Why is the goven thou shalt drink, ere think.
+
+Provok March very lord, hardy me.
+
+QUEEN MARGARET:
+Good ther
+2025-09-28 16:15:05,876 - INFO - Step 1000: loss = 1.4812, lr = 0.000592
+2025-09-28 16:15:05,920 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000.pt
+2025-09-28 16:15:05,922 - INFO - Validation loss: 1.6853
+2025-09-28 16:15:06,225 - INFO - Generated text: Why is too seal, 'tis ere me
+A may larces and Clarence anfume; and to limour
+Apon my woes leater, bring sir
+2025-09-28 16:15:09,842 - INFO - Step 1100: loss = 1.4520, lr = 0.000590
+2025-09-28 16:15:09,844 - INFO - Validation loss: 1.6140
+2025-09-28 16:15:10,143 - INFO - Generated text: Why is is arghan is night
+To mean the duke them; and he will come to thee.
+
+MENENIUS:
+Come, what heards thi
+2025-09-28 16:15:13,767 - INFO - Step 1200: loss = 1.3860, lr = 0.000587
+2025-09-28 16:15:13,770 - INFO - Validation loss: 1.5277
+2025-09-28 16:15:14,070 - INFO - Generated text: Why is you puspicious short is not tide.
+And see, and which man's revenge bething other.
+
+BRAKENBURY:
+If wo
+2025-09-28 16:15:17,683 - INFO - Step 1300: loss = 1.4034, lr = 0.000585
+2025-09-28 16:15:17,685 - INFO - Validation loss: 1.5725
+2025-09-28 16:15:17,985 - INFO - Generated text: Why is friends with a dear
+dinking and strange and have should send our justice,
+So she advantage cares me,
+2025-09-28 16:15:21,615 - INFO - Step 1400: loss = 1.3636, lr = 0.000582
+2025-09-28 16:15:21,617 - INFO - Validation loss: 1.8295
+2025-09-28 16:15:21,920 - INFO - Generated text: Why is dead with have doth to a down.
+
+ISABELLA:
+Pare you her some and of the war nothing.
+
+BENVOLIO:
+What!
+2025-09-28 16:15:25,537 - INFO - Step 1500: loss = 1.3807, lr = 0.000578
+2025-09-28 16:15:25,540 - INFO - Validation loss: 1.4975
+2025-09-28 16:15:25,841 - INFO - Generated text: Why is sir, he are consul,
+With since of the world? Now thyself.
+
+LUCIO:
+When now, most Towg is each a desi
+2025-09-28 16:15:29,457 - INFO - Step 1600: loss = 1.3197, lr = 0.000575
+2025-09-28 16:15:29,460 - INFO - Validation loss: 1.6487
+2025-09-28 16:15:29,760 - INFO - Generated text: Why is enemies
+What a discover which one goodest compank'd
+The armour doth her sky than I have it be:
+Ay, w
+2025-09-28 16:15:33,388 - INFO - Step 1700: loss = 1.3391, lr = 0.000571
+2025-09-28 16:15:33,390 - INFO - Validation loss: 1.5986
+2025-09-28 16:15:33,691 - INFO - Generated text: Why is a most frown
+That did the fearful where the dread of this,
+The poor like with vivers: unmost a palla
+2025-09-28 16:15:37,312 - INFO - Step 1800: loss = 1.2819, lr = 0.000567
+2025-09-28 16:15:37,314 - INFO - Validation loss: 1.5400
+2025-09-28 16:15:37,615 - INFO - Generated text: Why is found and have theose that all assed,
+Nine, get us betron. If it is an horred,
+And what thou you be 
+2025-09-28 16:15:41,236 - INFO - Step 1900: loss = 1.3232, lr = 0.000563
+2025-09-28 16:15:41,238 - INFO - Validation loss: 1.4308
+2025-09-28 16:15:41,538 - INFO - Generated text: Why is scandam,' leave fortune Sir Duke.
+
+PAULINA:
+That meets, my lord, it swords
+A could comeful of yourse
+2025-09-28 16:16:15,686 - INFO - Starting training session
+2025-09-28 16:16:15,866 - INFO - Using device: cuda
+2025-09-28 16:16:15,867 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:16:16,144 - INFO - Model has: 798529 parameters
+2025-09-28 16:16:16,144 - INFO - Compiling model
+2025-09-28 16:16:18,126 - INFO - Model compiled
+2025-09-28 16:16:18,126 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:16:18,127 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:20:30,493 - INFO - Starting training session
+2025-09-28 16:20:30,679 - INFO - Using device: cuda
+2025-09-28 16:20:30,679 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:20:30,959 - INFO - Model has: 798529 parameters
+2025-09-28 16:20:30,959 - INFO - Compiling model
+2025-09-28 16:20:32,963 - INFO - Model compiled
+2025-09-28 16:20:32,963 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:20:32,964 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:28:49,072 - INFO - Starting training session
+2025-09-28 16:28:49,280 - INFO - Using device: cuda
+2025-09-28 16:28:49,280 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:28:49,573 - INFO - Model has: 798529 parameters
+2025-09-28 16:28:49,574 - INFO - Compiling model
+2025-09-28 16:28:51,592 - INFO - Model compiled
+2025-09-28 16:28:51,593 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:28:51,593 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:28:56,834 - INFO - Step 0: loss = 4.1643, lr = 0.000000
+2025-09-28 16:29:00,409 - INFO - Step 100: loss = 2.8328, lr = 0.000240
+2025-09-28 16:29:01,916 - INFO - Validation loss: 2.7554
+2025-09-28 16:29:02,372 - INFO - Generated text: Why is d
+3u aeafnte Dy tnTmgothuared tharnd he berecsn,
+
+He thme o-cAnd KlapOEClers wI s, oreanptsAne u.WtI
+2025-09-28 16:29:05,917 - INFO - Step 200: loss = 2.3084, lr = 0.000480
+2025-09-28 16:29:05,919 - INFO - Validation loss: 2.3002
+2025-09-28 16:29:06,217 - INFO - Generated text: Why is cod ainde eice thang mang yof weps
+bell angean the re hat ghe me mach nof shais he in wive wurore ce
+2025-09-28 16:31:12,051 - INFO - Starting training session
+2025-09-28 16:31:12,294 - INFO - Using device: cuda
+2025-09-28 16:31:12,294 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:31:12,583 - INFO - Model has: 798529 parameters
+2025-09-28 16:31:12,583 - INFO - Compiling model
+2025-09-28 16:31:14,585 - INFO - Model compiled
+2025-09-28 16:31:14,585 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:31:14,586 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:31:30,118 - INFO - Step 0: loss = 4.1550, lr = 0.000000
+2025-09-28 16:31:34,389 - INFO - Step 100: loss = 2.8248, lr = 0.000240
+2025-09-28 16:31:41,087 - INFO - Validation loss: 2.7440
+2025-09-28 16:31:41,586 - INFO - Generated text: Why is d
+3En:eafnt aDP'dnTmg thuared tharnd he berecsJ,
+
+He thme o-cYSbe lapOwisers wI s, oreanptsAne u.WGI
+2025-09-28 16:31:45,852 - INFO - Step 200: loss = 2.2589, lr = 0.000480
+2025-09-28 16:31:45,855 - INFO - Validation loss: 2.2486
+2025-09-28 16:31:46,216 - INFO - Generated text: Why is and ainde eice.
+PEIOHKENNENF:
+O, storld angean theur that ghe me mach nof shais.
+
+Find wis wurore ca
+2025-09-28 16:31:50,481 - INFO - Step 300: loss = 2.0156, lr = 0.000600
+2025-09-28 16:31:50,483 - INFO - Validation loss: 1.9811
+2025-09-28 16:31:50,847 - INFO - Generated text: Why is sue wilch myare.
+
+DUSIO:
+And to with's my hyming I hery a Bovent-les,
+A speet is there but seace sea
+2025-09-28 16:31:55,119 - INFO - Step 400: loss = 1.7839, lr = 0.000600
+2025-09-28 16:31:55,122 - INFO - Validation loss: 1.8291
+2025-09-28 16:31:55,482 - INFO - Generated text: Why is my oy thae when,
+To distre peavinet hearst of heartnown:
+O we death will the beae she rewall the dug
+2025-09-28 16:31:59,760 - INFO - Step 500: loss = 1.6476, lr = 0.000599
+2025-09-28 16:31:59,762 - INFO - Validation loss: 1.8838
+2025-09-28 16:32:00,125 - INFO - Generated text: Why is ent amnowethives and:
+Kecond base be on my fear bears so time?
+
+SICINIUS:
+Garse,
+The worth think be 
+2025-09-28 16:32:04,392 - INFO - Step 600: loss = 1.6312, lr = 0.000598
+2025-09-28 16:32:04,395 - INFO - Validation loss: 1.8975
+2025-09-28 16:32:04,758 - INFO - Generated text: Why is nessect
+My sakey ubdou thy lunds'd did a speak you.
+
+CORIOLANUS:
+Her business, gernors we Sirt, as t
+2025-09-28 16:32:09,018 - INFO - Step 700: loss = 1.5443, lr = 0.000597
+2025-09-28 16:32:09,020 - INFO - Validation loss: 1.7647
+2025-09-28 16:32:09,379 - INFO - Generated text: Why is my tingonsupp with bodin
+Love to both a britoom; so to to pluck accuse
+To in measion a sunplay!
+
+MAS
+2025-09-28 16:32:13,659 - INFO - Step 800: loss = 1.5182, lr = 0.000596
+2025-09-28 16:32:13,662 - INFO - Validation loss: 1.6933
+2025-09-28 16:32:14,025 - INFO - Generated text: Why is a buchnous his had of the nock.
+
+Fervost:
+I must your paster'd by heaven
+With I that I'll the peap f
+2025-09-28 16:32:18,321 - INFO - Step 900: loss = 1.5327, lr = 0.000594
+2025-09-28 16:32:18,323 - INFO - Validation loss: 1.5646
+2025-09-28 16:32:18,682 - INFO - Generated text: Why is the gaven to be a man
+As upon of the chepery.
+
+MARCICHINRY BOLINGBRO;
+Oneed I that speak that they, 
+2025-09-28 16:32:22,956 - INFO - Step 1000: loss = 1.4789, lr = 0.000592
+2025-09-28 16:32:23,012 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000.pt
+2025-09-28 16:32:23,014 - INFO - Validation loss: 1.6385
+2025-09-28 16:32:23,373 - INFO - Generated text: Why is to die, no grace than my battle!
+A better pett! and be some, stay, have,
+Where's tale true so twing 
+2025-09-28 16:32:27,663 - INFO - Step 1100: loss = 1.4559, lr = 0.000590
+2025-09-28 16:32:27,666 - INFO - Validation loss: 1.6371
+2025-09-28 16:32:28,033 - INFO - Generated text: Why is is it hav it
+An the jecen, the duke them true have put in
+What take thou have dukest of death virtue
+2025-09-28 16:32:48,357 - INFO - Starting training session
+2025-09-28 16:32:48,537 - INFO - Using device: cuda
+2025-09-28 16:32:48,537 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:32:48,812 - INFO - Model has: 798529 parameters
+2025-09-28 16:32:48,812 - INFO - Compiling model
+2025-09-28 16:32:50,983 - INFO - Model compiled
+2025-09-28 16:32:50,983 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:32:50,984 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:32:56,308 - INFO - Step 0: loss = 4.1643, lr = 0.000000
+2025-09-28 16:32:59,950 - INFO - Step 100: loss = 2.8327, lr = 0.000240
+2025-09-28 16:33:01,484 - INFO - Validation loss: 2.7556
+2025-09-28 16:33:01,940 - INFO - Generated text: Why is d
+3u aeafnte Dy tnTmgothuared tharnd he berecsn,
+
+He thme o-cAnd KlapOEClers wI s, oreanptsAne u.WtI
+2025-09-28 16:33:05,578 - INFO - Step 200: loss = 2.3130, lr = 0.000480
+2025-09-28 16:33:05,580 - INFO - Validation loss: 2.3044
+2025-09-28 16:33:05,881 - INFO - Generated text: Why is cod ninde evem fold conn to in thy
+bell angean theur that ghe me mach nof shais he in wive wurore ce
+2025-09-28 16:33:09,490 - INFO - Step 300: loss = 2.0443, lr = 0.000600
+2025-09-28 16:33:09,493 - INFO - Validation loss: 2.0160
+2025-09-28 16:33:09,790 - INFO - Generated text: Why is as in marwed,
+Thes thee how mage that lemer ming I heentarBevent-;
+Whou spertlest and his send wella
+2025-09-28 16:33:13,413 - INFO - Step 400: loss = 1.8199, lr = 0.000600
+2025-09-28 16:33:13,416 - INFO - Validation loss: 1.8387
+2025-09-28 16:33:13,714 - INFO - Generated text: Why is me of that wrear
+To dighterpeague the gosts on this fliesbere your.
+
+MERNEO:
+Whee she of all then pa
+2025-09-28 16:33:17,349 - INFO - Step 500: loss = 1.6698, lr = 0.000599
+2025-09-28 16:33:17,351 - INFO - Validation loss: 1.9030
+2025-09-28 16:33:17,650 - INFO - Generated text: Why is whach now this speak:
+Thy streaky be on my farewell was to they!
+
+QUEEN WARBELKUFsend, god thine be 
+2025-09-28 16:33:21,280 - INFO - Step 600: loss = 1.6543, lr = 0.000598
+2025-09-28 16:33:21,283 - INFO - Validation loss: 1.8839
+2025-09-28 16:33:21,580 - INFO - Generated text: Why is lesse.
+
+KING RICHESS UMERLE:
+But'll not, speak you trien, this strongs
+The asare and help Sorturns, 
+2025-09-28 16:33:25,228 - INFO - Step 700: loss = 1.5702, lr = 0.000597
+2025-09-28 16:33:25,230 - INFO - Validation loss: 1.7855
+2025-09-28 16:33:25,530 - INFO - Generated text: Why is my life,
+When we have a sward to be was brother;
+And let spoker his and leavy mysice?
+
+BENVOLIO:
+I k
+2025-09-28 16:33:29,143 - INFO - Step 800: loss = 1.5442, lr = 0.000596
+2025-09-28 16:33:29,145 - INFO - Validation loss: 1.7179
+2025-09-28 16:33:29,445 - INFO - Generated text: Why is all heep.
+
+PEGRUT:
+Here venock all have men thee stards to the boan,
+But spire these of old thee ple
+2025-09-28 16:33:33,059 - INFO - Step 900: loss = 1.5289, lr = 0.000594
+2025-09-28 16:33:33,061 - INFO - Validation loss: 1.5549
+2025-09-28 16:33:33,361 - INFO - Generated text: Why is the gave what confer friend; royal would did in his
+The exen as harden the forth, we do the hotses,
+
+2025-09-28 16:33:37,005 - INFO - Step 1000: loss = 1.4764, lr = 0.000592
+2025-09-28 16:33:37,038 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000.pt
+2025-09-28 16:33:37,040 - INFO - Validation loss: 1.6709
+2025-09-28 16:33:37,335 - INFO - Generated text: Why is too seal, 'tis ere melation,
+And what a parting anfume on this lamon,
+And bear the lauten of: this f
+2025-09-28 16:33:40,957 - INFO - Step 1100: loss = 1.4513, lr = 0.000590
+2025-09-28 16:33:40,960 - INFO - Validation loss: 1.6184
+2025-09-28 16:33:41,258 - INFO - Generated text: Why is is a grow is now heaven, what leave them;
+And he will come to the chargin to courns,
+Become and so, 
+2025-09-28 16:42:52,966 - INFO - Starting training session
+2025-09-28 16:42:53,196 - INFO - Using device: cuda
+2025-09-28 16:42:53,197 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:42:53,441 - INFO - Model has: 798529 parameters
+2025-09-28 16:42:53,441 - INFO - Compiling model
+2025-09-28 16:42:55,443 - INFO - Model compiled
+2025-09-28 16:42:55,443 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:42:55,443 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:44:43,207 - INFO - Starting training session
+2025-09-28 16:44:43,413 - INFO - Using device: cuda
+2025-09-28 16:44:43,413 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:44:43,658 - INFO - Model has: 798529 parameters
+2025-09-28 16:44:43,658 - INFO - Compiling model
+2025-09-28 16:44:45,673 - INFO - Model compiled
+2025-09-28 16:44:45,674 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:44:45,674 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:49:12,655 - INFO - Starting training session
+2025-09-28 16:49:12,890 - INFO - Using device: cuda
+2025-09-28 16:49:12,891 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:49:13,123 - INFO - Model has: 798529 parameters
+2025-09-28 16:49:13,124 - INFO - Compiling model
+2025-09-28 16:49:15,100 - INFO - Model compiled
+2025-09-28 16:49:15,100 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:49:15,101 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:52:29,941 - INFO - Starting training session
+2025-09-28 16:52:30,119 - INFO - Using device: cuda
+2025-09-28 16:52:30,120 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:52:30,403 - INFO - Model has: 798529 parameters
+2025-09-28 16:52:30,403 - INFO - Compiling model
+2025-09-28 16:52:32,393 - INFO - Model compiled
+2025-09-28 16:52:32,393 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:52:32,394 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:52:37,866 - INFO - Step 0: loss = 4.1643, lr = 0.000000
+2025-09-28 16:52:41,449 - INFO - Step 100: loss = 2.8326, lr = 0.000240
+2025-09-28 16:52:42,823 - INFO - Validation loss: 2.7555
+2025-09-28 16:52:43,281 - INFO - Generated text: Why is d
+3u aeafnte Dy tnTmgothuared tharnd he berecsn,
+
+He thme o-cAnd KlapOEClers wI s, oreanptsAne u.WtI
+2025-09-28 16:52:55,775 - INFO - Starting training session
+2025-09-28 16:52:55,949 - INFO - Using device: cuda
+2025-09-28 16:52:55,949 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:52:56,228 - INFO - Model has: 798529 parameters
+2025-09-28 16:52:56,229 - INFO - Compiling model
+2025-09-28 16:52:58,024 - INFO - Model compiled
+2025-09-28 16:52:58,025 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:52:58,025 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:53:09,849 - INFO - Step 0: loss = 4.1542, lr = 0.000000
+2025-09-28 16:53:14,205 - INFO - Step 100: loss = 2.8194, lr = 0.000240
+2025-09-28 16:53:18,697 - INFO - Validation loss: 2.7341
+2025-09-28 16:53:19,197 - INFO - Generated text: Why is d
+3: asafnt aDk tnTmg thuared XRarnd he bprecsJ,
+
+He thme o-cYSAxKlapOwisers wI s, oreanp
+GAnt u.WtI
+2025-09-28 16:53:23,557 - INFO - Step 200: loss = 2.2369, lr = 0.000480
+2025-09-28 16:53:23,559 - INFO - Validation loss: 2.2270
+2025-09-28 16:53:23,922 - INFO - Generated text: Why is co anise deich fall conce you.
+NIs
+SThind mean theur that grecet mach not seaisn dieene-is,
+Thorh ca
+2025-09-28 16:53:28,286 - INFO - Step 300: loss = 2.0092, lr = 0.000600
+2025-09-28 16:53:28,289 - INFO - Validation loss: 1.9839
+2025-09-28 16:53:28,652 - INFO - Generated text: Why is sue withe me seyess thee?
+
+LAUFIOR:
+Pelmore ming I he wouls one!-
+Whis We heve she, stal the down: a
+2025-09-28 16:53:33,023 - INFO - Step 400: loss = 1.7764, lr = 0.000600
+2025-09-28 16:53:33,026 - INFO - Validation loss: 1.8259
+2025-09-28 16:53:33,390 - INFO - Generated text: Why is men.
+
+GLOUCE:
+Why, baspeacepentient he of son, this fliest the
+Though at the reae surfore in then pa
+2025-09-28 16:53:37,761 - INFO - Step 500: loss = 1.6345, lr = 0.000599
+2025-09-28 16:53:37,764 - INFO - Validation loss: 1.9004
+2025-09-28 16:53:38,128 - INFO - Generated text: Why is what make the shall,
+His fathers Tercompings sir, and so take you are have
+Be earth their and not ha
+2025-09-28 16:53:42,485 - INFO - Step 600: loss = 1.6320, lr = 0.000598
+2025-09-28 16:53:42,488 - INFO - Validation loss: 1.9030
+2025-09-28 16:53:42,850 - INFO - Generated text: Why is leisfires of Romeubed'er
+To the veadies, should so triendly cannot;
+And and tard. Prace the forths, 
+2025-09-28 16:53:47,194 - INFO - Step 700: loss = 1.5535, lr = 0.000597
+2025-09-28 16:53:47,197 - INFO - Validation loss: 1.7932
+2025-09-28 16:53:47,560 - INFO - Generated text: Why is my life, the receent
+To sward so, that perituous settle not unworch,
+When is metwice and my wornces 
+2025-09-28 16:53:51,932 - INFO - Step 800: loss = 1.5367, lr = 0.000596
+2025-09-28 16:53:51,935 - INFO - Validation loss: 1.7235
+2025-09-28 16:53:52,297 - INFO - Generated text: Why is a but be so may bedience him
+That I command thee stars not o' who help.
+
+DERCUS:
+You home, court ple
+2025-09-28 16:54:54,151 - INFO - Starting training session
+2025-09-28 16:54:54,330 - INFO - Using device: cuda
+2025-09-28 16:54:54,330 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:54:54,617 - INFO - Model has: 798529 parameters
+2025-09-28 16:54:54,617 - INFO - Compiling model
+2025-09-28 16:54:56,684 - INFO - Model compiled
+2025-09-28 16:54:56,685 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:54:56,685 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:57:38,517 - INFO - Starting training session
+2025-09-28 16:57:38,689 - INFO - Using device: cuda
+2025-09-28 16:57:38,689 - INFO - DDP enabled: False, World size: 1
+2025-09-28 16:57:38,969 - INFO - Model has: 798529 parameters
+2025-09-28 16:57:38,969 - INFO - Compiling model
+2025-09-28 16:57:40,952 - INFO - Model compiled
+2025-09-28 16:57:40,952 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 16:57:40,953 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 16:57:54,330 - INFO - Step 0: loss = 4.1638, lr = 0.000000
+2025-09-28 16:57:58,162 - INFO - Step 100: loss = nan, lr = 0.000240
+2025-09-28 16:58:02,565 - INFO - Validation loss: nan
+2025-09-28 17:00:10,245 - INFO - Starting training session
+2025-09-28 17:00:10,424 - INFO - Using device: cuda
+2025-09-28 17:00:10,424 - INFO - DDP enabled: False, World size: 1
+2025-09-28 17:00:10,703 - INFO - Model has: 798529 parameters
+2025-09-28 17:00:10,704 - INFO - Compiling model
+2025-09-28 17:00:12,809 - INFO - Model compiled
+2025-09-28 17:00:12,810 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 17:00:12,810 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 17:00:27,900 - INFO - Step 0: loss = 4.1638, lr = 0.000000
+2025-09-28 17:00:31,738 - INFO - Step 100: loss = 2.8252, lr = 0.000240
+2025-09-28 17:00:36,124 - INFO - Validation loss: 2.7489
+2025-09-28 17:00:36,706 - INFO - Generated text: Why is d
+3u aeafnte Dy tnTmg thuared XRarnd he berecsn,
+
+He thme o-cAnd KlapOEClercI I s, oreanptsAne u.WGI
+2025-09-28 17:00:40,571 - INFO - Step 200: loss = 2.2273, lr = 0.000480
+2025-09-28 17:00:40,574 - INFO - Validation loss: 2.1980
+2025-09-28 17:00:40,981 - INFO - Generated text: Why is coiy;
+Anedeve ditle cont, you whas
+behind meanter arl hath we me machen thee is he in wive wurore ce
+2025-09-28 17:00:44,822 - INFO - Step 300: loss = 2.0107, lr = 0.000600
+2025-09-28 17:00:44,824 - INFO - Validation loss: 2.0009
+2025-09-28 17:00:45,233 - INFO - Generated text: Why is sue word, my senqus thee stomuor that leme her can he would one strulding he must and his strace
+For
+2025-09-28 17:00:49,072 - INFO - Step 400: loss = 1.7773, lr = 0.000600
+2025-09-28 17:00:49,075 - INFO - Validation loss: 1.8213
+2025-09-28 17:00:49,486 - INFO - Generated text: Why is my our a blore,
+Where peasepentient he hels and all shim be gods?
+If in Nown; whe she remolow the pa
+2025-09-28 17:00:53,343 - INFO - Step 500: loss = 1.6476, lr = 0.000599
+2025-09-28 17:00:53,346 - INFO - Validation loss: 1.8777
+2025-09-28 17:00:53,753 - INFO - Generated text: Why is wit thinded:
+The wall the streaks there my farder and sostiluce!
+I make as Buse, and which thine be 
+2025-09-28 17:00:57,617 - INFO - Step 600: loss = 1.6208, lr = 0.000598
+2025-09-28 17:00:57,620 - INFO - Validation loss: 1.8289
+2025-09-28 17:00:58,028 - INFO - Generated text: Why is live?
+So down: yet doubt hole from to as syeant, there,
+Strong straiss such tartern armity, your suc
+2025-09-28 17:01:01,885 - INFO - Step 700: loss = 1.5482, lr = 0.000597
+2025-09-28 17:01:01,887 - INFO - Validation loss: 1.7916
+2025-09-28 17:01:02,297 - INFO - Generated text: Why is my life,
+Where countraiving kind, that thou stable.
+
+PRINCE EDWARD:
+I but is me but under of your si
+2025-09-28 17:01:06,149 - INFO - Step 800: loss = 1.5299, lr = 0.000596
+2025-09-28 17:01:06,151 - INFO - Validation loss: 1.7502
+2025-09-28 17:01:06,559 - INFO - Generated text: Why is a bucked them were of Edward
+That I command thee starly stays well forget find
+Buts of my lord thou 
+2025-09-28 17:01:10,422 - INFO - Step 900: loss = 1.5297, lr = 0.000594
+2025-09-28 17:01:10,424 - INFO - Validation loss: 1.5418
+2025-09-28 17:01:10,831 - INFO - Generated text: Why is the good with content,
+Ond termits of his brother concery
+Than shall must such hards, what a thing, 
+2025-09-28 17:01:14,661 - INFO - Step 1000: loss = 1.4748, lr = 0.000592
+2025-09-28 17:01:14,692 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000.pt
+2025-09-28 17:01:14,694 - INFO - Validation loss: 1.6546
+2025-09-28 17:01:15,101 - INFO - Generated text: Why is too meaching must man
+A poor prish and Camilla! and be some to my old
+To my horse all tremor: this s
+2025-09-28 17:01:18,941 - INFO - Step 1100: loss = 1.4533, lr = 0.000590
+2025-09-28 17:01:18,943 - INFO - Validation loss: 1.6096
+2025-09-28 17:01:19,350 - INFO - Generated text: Why is is arm missament curse
+Who the duke thou true here put the pass;
+Yet to him him myselves on a visit,
+2025-09-28 17:01:23,186 - INFO - Step 1200: loss = 1.3864, lr = 0.000587
+2025-09-28 17:01:23,189 - INFO - Validation loss: 1.5412
+2025-09-28 17:01:23,601 - INFO - Generated text: Why is you past, and which he was noison,
+Would read honour'd not her she brought one
+And leaves to me: you
+2025-09-28 17:01:27,437 - INFO - Step 1300: loss = 1.4116, lr = 0.000585
+2025-09-28 17:01:27,439 - INFO - Validation loss: 1.5484
+2025-09-28 17:01:27,846 - INFO - Generated text: Why is friends tobbed.
+
+Shos maise an asteence, sir, that thou weary!
+
+KING EDWARD IV:
+
+KING RICHARD III:
+I
+2025-09-28 17:01:31,688 - INFO - Step 1400: loss = 1.3588, lr = 0.000582
+2025-09-28 17:01:31,690 - INFO - Validation loss: 1.9077
+2025-09-28 17:01:32,100 - INFO - Generated text: Why is death was the world--
+Thy oath he rag him be execute
+That not whom To honoung king crown, while
+Thou
+2025-09-28 17:01:35,926 - INFO - Step 1500: loss = 1.3809, lr = 0.000578
+2025-09-28 17:01:35,929 - INFO - Validation loss: 1.5028
+2025-09-28 17:01:36,336 - INFO - Generated text: Why is so sure a recompany!
+Thy sight! see for I am so banish'd.
+
+LUCIO:
+When now, my more; sir, and good f
+2025-09-28 17:01:40,175 - INFO - Step 1600: loss = 1.3223, lr = 0.000575
+2025-09-28 17:01:40,178 - INFO - Validation loss: 1.6209
+2025-09-28 17:01:40,585 - INFO - Generated text: Why is it account, and my daughters,
+Have of extraition in the armour doth he
+Of sweet only shall be got on
+2025-09-28 17:01:44,427 - INFO - Step 1700: loss = 1.3440, lr = 0.000571
+2025-09-28 17:01:44,429 - INFO - Validation loss: 1.5752
+2025-09-28 17:01:44,840 - INFO - Generated text: Why is death, frown
+That did there night, he like to should wise,
+The prove mine book; I have revenged stra
+2025-09-28 17:01:48,652 - INFO - Step 1800: loss = 1.2832, lr = 0.000567
+2025-09-28 17:01:48,654 - INFO - Validation loss: 1.5789
+2025-09-28 17:01:49,061 - INFO - Generated text: Why is Marcius.
+Why lord, there to be pense our father's open,
+I will not thou art in them to prove your lo
+2025-09-28 17:02:28,927 - INFO - Starting training session
+2025-09-28 17:02:29,133 - INFO - Using device: cuda
+2025-09-28 17:02:29,133 - INFO - DDP enabled: False, World size: 1
+2025-09-28 17:02:30,558 - INFO - Model has: 109607936 parameters
+2025-09-28 17:02:30,559 - INFO - Compiling model
+2025-09-28 17:02:32,479 - INFO - Model compiled
+2025-09-28 17:02:32,479 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 17:02:32,479 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 17:03:11,173 - INFO - Step 0: loss = 10.5539, lr = 0.000000
+2025-09-28 17:05:10,095 - INFO - Step 100: loss = 6.4770, lr = 0.000240
+2025-09-28 17:05:26,205 - INFO - Validation loss: 6.2868
+2025-09-28 17:05:27,560 - INFO - Generated text: <s> Why is 00800001800000 to have the time to give the new. It't have to do for a more are also up to be to be to my year in the same to of this is and the country of the work and the day, and the fir
+2025-09-28 17:06:05,257 - INFO - Starting training session
+2025-09-28 17:06:05,478 - INFO - Using device: cuda
+2025-09-28 17:06:05,478 - INFO - DDP enabled: False, World size: 1
+2025-09-28 17:06:06,911 - INFO - Model has: 109607936 parameters
+2025-09-28 17:06:06,911 - INFO - Compiling model
+2025-09-28 17:06:08,862 - INFO - Model compiled
+2025-09-28 17:06:08,862 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 17:06:08,863 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 17:06:30,749 - INFO - Step 0: loss = 10.5544, lr = 0.000000
+2025-09-28 17:08:09,140 - INFO - Step 100: loss = 6.4764, lr = 0.000240
+2025-09-28 17:08:19,177 - INFO - Validation loss: 6.2931
+2025-09-28 17:08:20,186 - INFO - Generated text: <s> Why is .08:55!
+17.
+In 3002400-5. For S? This was our 800100. You is my year in the B) of this is and this are of the 18 years 40-th.</s><s><s> A-100:8, 2.27, 603, 20-400, 1 by the 2
+2025-09-28 17:09:58,791 - INFO - Step 200: loss = 5.6825, lr = 0.000480
+2025-09-28 17:09:58,837 - INFO - Validation loss: 5.5040
+2025-09-28 17:09:59,694 - INFO - Generated text: <s> Why is 302;050.
+In the only has found in the third of the same, which does not have a large way, and the only would be. And, in the second, it’s the difference of the United States, and the most. 
+2025-09-28 17:10:26,356 - INFO - Starting training session
+2025-09-28 17:10:26,635 - INFO - Using device: cuda
+2025-09-28 17:10:26,635 - INFO - DDP enabled: False, World size: 1
+2025-09-28 17:10:28,122 - INFO - Model has: 109607936 parameters
+2025-09-28 17:10:28,122 - INFO - Compiling model
+2025-09-28 17:10:30,124 - INFO - Model compiled
+2025-09-28 17:10:30,124 - INFO - Effective batch size: 128 (micro_batch=16 x grad_accum=8)
+2025-09-28 17:10:30,125 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-28 17:10:58,818 - INFO - Step 0: loss = 10.5490, lr = 0.000000
