@@ -32,6 +32,7 @@ class LlamaTokenizerWrapper(CustomTokenizer):
 
     def encode(self, inp): return torch.tensor(self.tokenizer.encode(inp), dtype=torch.long)
     def decode(self, inp): return self.tokenizer.decode(inp)
+    def get_vocab_size(self): return self.tokenizer.vocab_size
 
 class CharacterLevelTokenizerWrapper(CustomTokenizer):
     def __init__(self, stoi, itos):
@@ -51,36 +52,42 @@ class DataLoader:
         batch_size: int,
         rank: int, 
         world_size: int,
-        split: Literal['train', 'val'],
     ):
         self.block_size = block_size
         self.batch_size = batch_size
         self.data_path  = data_path
 
-        shards = sorted(
+        self.train_shards = sorted(
             os.path.join(self.data_path, s)
             for s in os.listdir(self.data_path)
-            if split in s
+            if 'train' in s
         )
-        assert len(shards) > 0, f'no shards found for split {split}'
-        print(f'found {len(shards)} shards for split {split}')
 
-        self.shards = shards
-        self.reset()
+        self.val_shards = sorted(
+            os.path.join(self.data_path, s)
+            for s in os.listdir(self.data_path)
+            if 'val' in s
+        )      
 
-    def _load_tokens(filename):
+        self.reset(split='train')
+        self.reset(split='val')
+
+    def _load_tokens(self, filename):
         npt = np.load(filename, allow_pickle=True)
         npt = npt.astype(np.int32)
         return torch.tensor(npt, dtype=torch.long)
 
-    def reset(self):
+    def reset(self, split):
         # state, init at shard zero
         self.current_shard = 0
-        self.tokens = self._load_tokens(self.shards[self.current_shard])
+        shards = self.train_shards if split == 'train' else self.val_shards
+        self.tokens = self._load_tokens(shards[self.current_shard])
         self.current_position = 0
 
-    def get_batch(self):
-        B, T = self.B, self.T
+    def get_batch(self, split):
+        B, T = self.batch_size, self.block_size
+        shards = self.train_shards if split == 'train' else self.val_shards
+        
         buf = self.tokens[self.current_position : self.current_position+B*T+1]
         x = (buf[:-1]).view(B, T) # inputs
         y = (buf[1:]).view(B, T) # targets
@@ -88,10 +95,10 @@ class DataLoader:
         self.current_position += B * T
         # if loading the next batch would be out of bounds, advance to next shard
         if self.current_position + (B * T + 1) > len(self.tokens):
-            self.current_shard = (self.current_shard + 1) % len(self.shards)
-            self.tokens = self._load_tokens(self.shards[self.current_shard])
+            self.current_shard = (self.current_shard + 1) % len(shards)
+            self.tokens = self._load_tokens(shards[self.current_shard])
             self.current_position = 0
-        return x, y
+        return x, y   
 
 
 """
@@ -195,9 +202,7 @@ def setup_ddp():
         rank = int(os.environ['RANK'])
         world_size = int(os.environ['WORLD_SIZE'])
         local_rank = int(os.environ['LOCAL_RANK'])
-    else:
-        print('Not using distributed mode')
-        return False, 0, 1, 0
+    else: return False, 0, 1, 0 #not using ddp
     
     dist.init_process_group(backend='nccl')
     torch.cuda.set_device(local_rank)

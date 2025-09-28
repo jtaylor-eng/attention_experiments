@@ -11,6 +11,7 @@
 # TODO:
  - [x] seperate files / better repo structure (train loop, architecture, utils,  experiments, logging)
  - [x] fix logging pathing (sbatch)
+ - [x] support train & val splits with c4 dataloader
  - [ ] fix DDP
  - [ ] consider fp precision for fast train / inference
 

@@ -1,14 +1,13 @@
 #!/bin/bash
-#SBATCH -A PAS2836
-#SBATCH --partition=nextgen
-#SBATCH --time=02:00:00
+#SBATCH -A PAS2119
+#SBATCH --partition=batch
+#SBATCH --time=01:00:00
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:2
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=64G
-#SBATCH --job-name=lm_train
-#SBATCH --output=std_out_err/lm_train.%j.out
-#SBATCH --error=std_out_err/lm_train.%j.err
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=1
+#SBATCH --job-name=safe-test
+#SBATCH --output=std_out_err/safe_test.%j.out
+#SBATCH --error=std_out_err/safe_test.%j.err
 
 module load miniconda3/24.1.2-py310
 module load cuda/12.4.1
@@ -18,4 +17,4 @@ conda activate /users/PAS3150/jacktaylor/miniconda3/envs/test_3.11
 
 nvidia-smi
 
-python decoder_only_transformer.py
+torchrun --nproc_per_node=1 --nnodes=1 train.py

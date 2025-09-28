@@ -114,7 +114,7 @@ class MHA(nn.Module):
 
 
 class LayerNorm(nn.Module):
-    def __init__(self, ndim, bias):
+    def __init__(self, ndim, bias=None):
         super().__init__()
         self.weight = nn.Parameter(torch.ones(ndim))
         self.bias = nn.Parameter(torch.zeros(ndim)) if bias else None
@@ -143,18 +143,20 @@ class LM(nn.Module):
         self.config = config
         self.tok_embeddings = nn.Embedding(config.vocab_size, config.dim_emb)
         self.rope = RoPE(config)
-
         self.dropout = config.mlp_dropout
 
         self.transformer = nn.ModuleList([TransformerBlock(config, self.rope) for _ in range(config.num_layers)])
+        self.ln_f = LayerNorm(config.dim_emb)
 
         self.unembedding = nn.Linear(config.dim_emb, config.vocab_size)
-        
         self.unembedding.weight = self.tok_embeddings.weight
+
+        self.apply(self._init_weights)
 
     def forward(self, idx):
         x = self.tok_embeddings(idx)
         for block in self.transformer: x = block(x)
+        x = self.ln_f(x)
         return self.unembedding(x)
 
     def _init_weights(self, module):
