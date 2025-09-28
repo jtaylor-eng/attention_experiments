@@ -758,3 +758,689 @@ An
 2025-09-24 21:36:26,493 - INFO - Using device: cuda:0
 2025-09-24 21:36:26,493 - INFO - DDP enabled: True, World size: 2
 2025-09-24 21:36:26,637 - INFO - Vocabulary size: 65
+2025-09-27 15:08:47,846 - INFO - Starting training session
+2025-09-27 15:08:47,901 - INFO - Using device: cpu
+2025-09-27 15:08:47,901 - INFO - DDP enabled: False, World size: 1
+2025-09-27 15:09:54,681 - INFO - Starting training session
+2025-09-27 15:09:54,716 - INFO - Using device: cpu
+2025-09-27 15:09:54,716 - INFO - DDP enabled: False, World size: 1
+2025-09-27 15:09:54,853 - INFO - Vocabulary size: 65
+2025-09-27 15:09:55,006 - INFO - Compiling model
+2025-09-27 15:09:59,516 - INFO - Model compiled
+2025-09-27 15:09:59,517 - INFO - Training for 10000 steps with checkpointing every 1000 steps
+2025-09-27 15:11:13,160 - INFO - Starting training session
+2025-09-27 15:11:13,284 - INFO - Using device: cuda
+2025-09-27 15:11:13,285 - INFO - DDP enabled: False, World size: 1
+2025-09-27 15:11:13,432 - INFO - Vocabulary size: 65
+2025-09-27 15:11:13,771 - INFO - Compiling model
+2025-09-27 15:11:17,002 - INFO - Model compiled
+2025-09-27 15:11:17,002 - INFO - Training for 10000 steps with checkpointing every 1000 steps
+2025-09-27 15:11:41,836 - INFO - Step 0: loss = 240.0079, lr = 0.000000
+2025-09-27 15:11:42,214 - INFO - Step 100: loss = 8.2951, lr = 0.000300
+2025-09-27 15:11:42,587 - INFO - Step 200: loss = 3.9270, lr = 0.000300
+2025-09-27 15:11:42,962 - INFO - Step 300: loss = 3.5091, lr = 0.000299
+2025-09-27 15:11:43,335 - INFO - Step 400: loss = 3.2239, lr = 0.000299
+2025-09-27 15:11:43,708 - INFO - Step 500: loss = 2.8009, lr = 0.000298
+2025-09-27 15:11:49,386 - INFO - Validation loss: 3.6216
+2025-09-27 15:11:50,842 - INFO - Generated text: 
+That me he theep. te ater
+JULEO:
+Pre he herepone a yet yo hat pos
+Pay his yo yo havereter
+Theepost t
+2025-09-27 15:11:51,220 - INFO - Step 600: loss = 2.6417, lr = 0.000298
+2025-09-27 15:11:51,595 - INFO - Step 700: loss = 2.3674, lr = 0.000297
+2025-09-27 15:11:51,971 - INFO - Step 800: loss = 2.7850, lr = 0.000296
+2025-09-27 15:11:52,346 - INFO - Step 900: loss = 2.2547, lr = 0.000295
+2025-09-27 15:11:52,720 - INFO - Step 1000: loss = 2.3462, lr = 0.000294
+2025-09-27 15:11:52,778 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000.pt
+2025-09-27 15:11:52,780 - INFO - Validation loss: 2.1974
+2025-09-27 15:11:53,046 - INFO - Generated text: 
+To amanie sp't thy to ance of thys
+Lout anceare that that ans of thou that hou and son tho'd hou tha
+2025-09-27 15:11:53,423 - INFO - Step 1100: loss = 2.3864, lr = 0.000292
+2025-09-27 15:11:53,798 - INFO - Step 1200: loss = 2.1069, lr = 0.000291
+2025-09-27 15:11:54,173 - INFO - Step 1300: loss = 2.0943, lr = 0.000289
+2025-09-27 15:11:54,549 - INFO - Step 1400: loss = 2.2264, lr = 0.000287
+2025-09-27 15:11:54,924 - INFO - Step 1500: loss = 2.1631, lr = 0.000285
+2025-09-27 15:11:54,926 - INFO - Validation loss: 2.1782
+2025-09-27 15:11:55,192 - INFO - Generated text: 
+The do though oursenter them to that's to therer imerenters oun.--pound ther and therervers year;
+Lo
+2025-09-27 15:11:55,568 - INFO - Step 1600: loss = 2.1208, lr = 0.000283
+2025-09-27 15:11:55,944 - INFO - Step 1700: loss = 2.1235, lr = 0.000281
+2025-09-27 15:11:56,320 - INFO - Step 1800: loss = 2.1131, lr = 0.000279
+2025-09-27 15:11:56,695 - INFO - Step 1900: loss = 1.9651, lr = 0.000277
+2025-09-27 15:11:57,070 - INFO - Step 2000: loss = 1.9467, lr = 0.000274
+2025-09-27 15:11:57,108 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_2000.pt
+2025-09-27 15:11:57,110 - INFO - Validation loss: 2.3820
+2025-09-27 15:11:57,377 - INFO - Generated text: 
+Secome as beast, as a my seack
+And my somess, meast man:
+I send ast as acce, be sucher head sault an
+2025-09-27 15:11:57,754 - INFO - Step 2100: loss = 2.0288, lr = 0.000272
+2025-09-27 15:11:58,129 - INFO - Step 2200: loss = 2.1501, lr = 0.000269
+2025-09-27 15:11:58,504 - INFO - Step 2300: loss = 1.8512, lr = 0.000266
+2025-09-27 15:11:58,878 - INFO - Step 2400: loss = 1.8857, lr = 0.000264
+2025-09-27 15:11:59,252 - INFO - Step 2500: loss = 2.0244, lr = 0.000261
+2025-09-27 15:11:59,254 - INFO - Validation loss: 2.1859
+2025-09-27 15:11:59,518 - INFO - Generated text: 
+
+
+FRRRII:
+Les a men, wish were's me to ance a ire at we witheren,
+I was a nam namen a with we near t
+2025-09-27 15:11:59,894 - INFO - Step 2600: loss = 1.9654, lr = 0.000258
+2025-09-27 15:12:00,269 - INFO - Step 2700: loss = 2.0282, lr = 0.000255
+2025-09-27 15:12:00,645 - INFO - Step 2800: loss = 2.0429, lr = 0.000251
+2025-09-27 15:12:01,019 - INFO - Step 2900: loss = 2.0694, lr = 0.000248
+2025-09-27 15:12:01,393 - INFO - Step 3000: loss = 1.7987, lr = 0.000245
+2025-09-27 15:12:01,437 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_3000.pt
+2025-09-27 15:12:01,439 - INFO - Validation loss: 1.9069
+2025-09-27 15:12:01,704 - INFO - Generated text: 
+QUEEN MARGARET:
+A I seem to the what manish'd to this shall as stongsing?
+
+ANTOLYCUS:
+Morde assicont
+2025-09-27 15:12:02,079 - INFO - Step 3100: loss = 1.8181, lr = 0.000241
+2025-09-27 15:12:02,453 - INFO - Step 3200: loss = 1.8260, lr = 0.000238
+2025-09-27 15:12:02,829 - INFO - Step 3300: loss = 1.7897, lr = 0.000234
+2025-09-27 15:12:03,204 - INFO - Step 3400: loss = 1.7831, lr = 0.000230
+2025-09-27 15:12:03,579 - INFO - Step 3500: loss = 1.5083, lr = 0.000227
+2025-09-27 15:12:03,580 - INFO - Validation loss: 1.9553
+2025-09-27 15:12:03,846 - INFO - Generated text: 
+How that they wish and and him when wis thit the be to the thou aboure;
+O, I will then annothy where
+2025-09-27 15:12:04,221 - INFO - Step 3600: loss = 1.7171, lr = 0.000223
+2025-09-27 15:12:04,598 - INFO - Step 3700: loss = 1.4740, lr = 0.000219
+2025-09-27 15:12:04,972 - INFO - Step 3800: loss = 1.7109, lr = 0.000215
+2025-09-27 15:12:05,350 - INFO - Step 3900: loss = 1.7533, lr = 0.000211
+2025-09-27 15:12:05,726 - INFO - Step 4000: loss = 1.7287, lr = 0.000207
+2025-09-27 15:12:05,805 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_4000.pt
+2025-09-27 15:12:05,807 - INFO - Validation loss: 1.9924
+2025-09-27 15:12:06,073 - INFO - Generated text: 
+EDWARENCE:
+What I to the had forther commen thee consing tear here foe
+The tren the contrain her the
+2025-09-27 15:12:06,450 - INFO - Step 4100: loss = 1.7783, lr = 0.000203
+2025-09-27 15:12:06,826 - INFO - Step 4200: loss = 1.7579, lr = 0.000199
+2025-09-27 15:12:07,202 - INFO - Step 4300: loss = 1.7057, lr = 0.000195
+2025-09-27 15:12:07,577 - INFO - Step 4400: loss = 1.7844, lr = 0.000191
+2025-09-27 15:12:07,953 - INFO - Step 4500: loss = 2.0161, lr = 0.000186
+2025-09-27 15:12:07,955 - INFO - Validation loss: 2.0695
+2025-09-27 15:12:08,220 - INFO - Generated text: 
+Shall deadly beding that do the sting. I drang not him and tade hath to the fritte did
+You madd name
+2025-09-27 15:12:08,597 - INFO - Step 4600: loss = 1.5522, lr = 0.000182
+2025-09-27 15:12:08,973 - INFO - Step 4700: loss = 1.7403, lr = 0.000178
+2025-09-27 15:12:09,349 - INFO - Step 4800: loss = 1.8451, lr = 0.000174
+2025-09-27 15:12:09,726 - INFO - Step 4900: loss = 1.6370, lr = 0.000169
+2025-09-27 15:12:10,103 - INFO - Step 5000: loss = 1.8199, lr = 0.000165
+2025-09-27 15:12:10,166 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_5000.pt
+2025-09-27 15:12:10,168 - INFO - Validation loss: 1.8434
+2025-09-27 15:12:10,435 - INFO - Generated text: 
+To die, out think, and thou words the death
+Thank, I dis our of death
+To mones on old, ando mine you
+2025-09-27 15:12:10,811 - INFO - Step 5100: loss = 1.7891, lr = 0.000161
+2025-09-27 15:12:11,187 - INFO - Step 5200: loss = 1.7274, lr = 0.000157
+2025-09-27 15:12:11,566 - INFO - Step 5300: loss = 1.4928, lr = 0.000152
+2025-09-27 15:12:11,942 - INFO - Step 5400: loss = 1.6587, lr = 0.000148
+2025-09-27 15:12:12,318 - INFO - Step 5500: loss = 1.7373, lr = 0.000144
+2025-09-27 15:12:12,319 - INFO - Validation loss: 1.8642
+2025-09-27 15:12:12,584 - INFO - Generated text: 
+Fourth his from he perce what, what them; and he within a mised and a mirs, how breath,
+I havides th
+2025-09-27 15:12:12,961 - INFO - Step 5600: loss = 1.7049, lr = 0.000140
+2025-09-27 15:12:13,337 - INFO - Step 5700: loss = 1.6403, lr = 0.000136
+2025-09-27 15:12:13,714 - INFO - Step 5800: loss = 1.6094, lr = 0.000132
+2025-09-27 15:12:14,091 - INFO - Step 5900: loss = 1.8775, lr = 0.000128
+2025-09-27 15:12:14,467 - INFO - Step 6000: loss = 1.5059, lr = 0.000123
+2025-09-27 15:12:14,521 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_6000.pt
+2025-09-27 15:12:14,523 - INFO - Validation loss: 1.7308
+2025-09-27 15:12:14,789 - INFO - Generated text: 
+
+For your father, and, and this the close,
+As that, thank, and she what's out of a way
+And, for hear
+2025-09-27 15:12:15,165 - INFO - Step 6100: loss = 1.5431, lr = 0.000119
+2025-09-27 15:12:15,541 - INFO - Step 6200: loss = 1.4064, lr = 0.000115
+2025-09-27 15:12:15,916 - INFO - Step 6300: loss = 1.6808, lr = 0.000112
+2025-09-27 15:12:16,291 - INFO - Step 6400: loss = 1.6188, lr = 0.000108
+2025-09-27 15:12:16,667 - INFO - Step 6500: loss = 1.5958, lr = 0.000104
+2025-09-27 15:12:16,669 - INFO - Validation loss: 1.8039
+2025-09-27 15:12:16,934 - INFO - Generated text: 
+And the way to bear of the sair to my friend
+Who said to some to-sours and with the wises,
+Though is
+2025-09-27 15:12:17,309 - INFO - Step 6600: loss = 1.5600, lr = 0.000100
+2025-09-27 15:12:17,685 - INFO - Step 6700: loss = 1.7182, lr = 0.000096
+2025-09-27 15:12:18,061 - INFO - Step 6800: loss = 1.4055, lr = 0.000093
+2025-09-27 15:12:18,437 - INFO - Step 6900: loss = 1.6076, lr = 0.000089
+2025-09-27 15:12:18,812 - INFO - Step 7000: loss = 1.6242, lr = 0.000086
+2025-09-27 15:12:18,851 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_7000.pt
+2025-09-27 15:12:18,853 - INFO - Validation loss: 1.8403
+2025-09-27 15:12:19,118 - INFO - Generated text: 
+That that our with of secontast though aboune,
+Where shall sever with a death his be of should,
+Whom
+2025-09-27 15:12:19,494 - INFO - Step 7100: loss = 1.5321, lr = 0.000082
+2025-09-27 15:12:19,871 - INFO - Step 7200: loss = 1.7175, lr = 0.000079
+2025-09-27 15:12:20,248 - INFO - Step 7300: loss = 1.6896, lr = 0.000076
+2025-09-27 15:12:20,624 - INFO - Step 7400: loss = 1.5113, lr = 0.000073
+2025-09-27 15:12:21,000 - INFO - Step 7500: loss = 1.6732, lr = 0.000070
+2025-09-27 15:12:21,002 - INFO - Validation loss: 1.7213
+2025-09-27 15:12:21,266 - INFO - Generated text: 
+
+ANGELO:
+Your brother so blief.
+
+Second Came have toward? I shall to heed,
+Your hone, sincal that th
+2025-09-27 15:12:21,643 - INFO - Step 7600: loss = 1.2408, lr = 0.000067
+2025-09-27 15:12:22,018 - INFO - Step 7700: loss = 1.3994, lr = 0.000064
+2025-09-27 15:12:22,393 - INFO - Step 7800: loss = 1.7207, lr = 0.000061
+2025-09-27 15:12:22,769 - INFO - Step 7900: loss = 1.4560, lr = 0.000058
+2025-09-27 15:12:23,143 - INFO - Step 8000: loss = 1.5201, lr = 0.000056
+2025-09-27 15:12:23,208 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_8000.pt
+2025-09-27 15:12:23,210 - INFO - Validation loss: 1.6869
+2025-09-27 15:12:23,475 - INFO - Generated text: 
+
+What means an his fain and fool, to held.
+
+KING RICHBIOND:
+Why may the secord born freen, be that, 
+2025-09-27 15:12:23,851 - INFO - Step 8100: loss = 1.6296, lr = 0.000053
+2025-09-27 15:12:24,227 - INFO - Step 8200: loss = 1.6813, lr = 0.000051
+2025-09-27 15:12:24,601 - INFO - Step 8300: loss = 1.5226, lr = 0.000049
+2025-09-27 15:12:24,976 - INFO - Step 8400: loss = 1.7545, lr = 0.000047
+2025-09-27 15:12:25,351 - INFO - Step 8500: loss = 1.6483, lr = 0.000045
+2025-09-27 15:12:25,352 - INFO - Validation loss: 1.6373
+2025-09-27 15:12:25,616 - INFO - Generated text: 
+Horts, thou so the from to be against to-mothee;
+And wise, the both
+The worsomenied to him say as fr
+2025-09-27 15:12:25,992 - INFO - Step 8600: loss = 1.4800, lr = 0.000043
+2025-09-27 15:12:26,368 - INFO - Step 8700: loss = 1.5831, lr = 0.000041
+2025-09-27 15:12:26,743 - INFO - Step 8800: loss = 1.3384, lr = 0.000039
+2025-09-27 15:12:27,119 - INFO - Step 8900: loss = 1.5483, lr = 0.000038
+2025-09-27 15:12:27,495 - INFO - Step 9000: loss = 1.5146, lr = 0.000037
+2025-09-27 15:12:27,559 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_9000.pt
+2025-09-27 15:12:27,561 - INFO - Validation loss: 1.7814
+2025-09-27 15:12:27,826 - INFO - Generated text: 
+The cannot and the seek it some to say in my,
+Which that the withors sorry wise, word were are burt
+
+2025-09-27 15:12:28,203 - INFO - Step 9100: loss = 1.6215, lr = 0.000035
+2025-09-27 15:12:28,580 - INFO - Step 9200: loss = 1.3582, lr = 0.000034
+2025-09-27 15:12:28,957 - INFO - Step 9300: loss = 1.3550, lr = 0.000033
+2025-09-27 15:12:29,332 - INFO - Step 9400: loss = 1.4539, lr = 0.000032
+2025-09-27 15:12:29,707 - INFO - Step 9500: loss = 1.4466, lr = 0.000032
+2025-09-27 15:12:29,709 - INFO - Validation loss: 1.6530
+2025-09-27 15:12:29,974 - INFO - Generated text: 
+
+ISARELANUS:
+In he day. It true, you show sweet him on,
+And sense, there wise your comes of thyse
+An
+2025-09-27 15:12:30,351 - INFO - Step 9600: loss = 1.4533, lr = 0.000031
+2025-09-27 15:12:30,729 - INFO - Step 9700: loss = 1.5513, lr = 0.000031
+2025-09-27 15:12:31,106 - INFO - Step 9800: loss = 1.4006, lr = 0.000030
+2025-09-27 15:12:31,483 - INFO - Step 9900: loss = 1.5565, lr = 0.000030
+2025-09-27 15:12:31,938 - INFO - Final checkpoint saved: ../checkpoints/checkpoint_step_10000.pt
+2025-09-27 15:12:31,938 - INFO - Training completed!
+2025-09-27 15:12:49,923 - INFO - Starting training session
+2025-09-27 15:12:50,029 - INFO - Using device: cuda
+2025-09-27 15:12:50,029 - INFO - DDP enabled: False, World size: 1
+2025-09-27 15:12:50,160 - INFO - Vocabulary size: 65
+2025-09-27 15:12:50,413 - INFO - Compiling model
+2025-09-27 15:12:52,279 - INFO - Model compiled
+2025-09-27 15:12:52,280 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-27 15:13:07,475 - INFO - Step 0: loss = 243.2986, lr = 0.000000
+2025-09-27 15:13:08,658 - INFO - Step 100: loss = 4.3963, lr = 0.000300
+2025-09-27 15:13:09,839 - INFO - Step 200: loss = 2.8345, lr = 0.000300
+2025-09-27 15:13:11,020 - INFO - Step 300: loss = 2.4457, lr = 0.000299
+2025-09-27 15:13:12,201 - INFO - Step 400: loss = 2.3458, lr = 0.000299
+2025-09-27 15:13:13,383 - INFO - Step 500: loss = 2.1586, lr = 0.000298
+2025-09-27 15:13:18,358 - INFO - Validation loss: 2.3413
+2025-09-27 15:13:18,769 - INFO - Generated text: 
+IIIN weare ware ware our and you you heepppecter
+The peak of with pack and pard hard and tend to the
+2025-09-27 15:13:19,950 - INFO - Step 600: loss = 2.0796, lr = 0.000298
+2025-09-27 15:13:21,132 - INFO - Step 700: loss = 2.0253, lr = 0.000297
+2025-09-27 15:13:22,313 - INFO - Step 800: loss = 1.8985, lr = 0.000296
+2025-09-27 15:13:23,495 - INFO - Step 900: loss = 1.8985, lr = 0.000295
+2025-09-27 15:13:24,676 - INFO - Step 1000: loss = 1.8788, lr = 0.000294
+2025-09-27 15:13:24,720 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000.pt
+2025-09-27 15:13:24,725 - INFO - Validation loss: 2.0125
+2025-09-27 15:13:24,993 - INFO - Generated text: 
+Nothat you chempace. This soldess
+To charess with are shall some to hank to the here
+To--topering ca
+2025-09-27 15:13:26,175 - INFO - Step 1100: loss = 1.8288, lr = 0.000292
+2025-09-27 15:13:27,356 - INFO - Step 1200: loss = 1.7540, lr = 0.000291
+2025-09-27 15:13:28,538 - INFO - Step 1300: loss = 1.7727, lr = 0.000289
+2025-09-27 15:13:29,719 - INFO - Step 1400: loss = 1.7758, lr = 0.000287
+2025-09-27 15:13:30,900 - INFO - Step 1500: loss = 1.6947, lr = 0.000285
+2025-09-27 15:13:30,905 - INFO - Validation loss: 1.9078
+2025-09-27 15:13:31,172 - INFO - Generated text: 
+And wilt with wors?
+
+Sech to torbit he may here in he would winty,
+With slest is there is wends to t
+2025-09-27 15:13:32,353 - INFO - Step 1600: loss = 1.7323, lr = 0.000283
+2025-09-27 15:13:33,534 - INFO - Step 1700: loss = 1.6558, lr = 0.000281
+2025-09-27 15:13:34,715 - INFO - Step 1800: loss = 1.6572, lr = 0.000279
+2025-09-27 15:13:35,896 - INFO - Step 1900: loss = 1.5192, lr = 0.000277
+2025-09-27 15:13:37,078 - INFO - Step 2000: loss = 1.5909, lr = 0.000274
+2025-09-27 15:13:37,113 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_2000.pt
+2025-09-27 15:13:37,118 - INFO - Validation loss: 1.9490
+2025-09-27 15:13:37,386 - INFO - Generated text: 
+Some at to make,
+To mishne peace oble any son meal.
+
+ROMEO:
+It sating: attench te she be a the compa
+2025-09-27 15:13:38,568 - INFO - Step 2100: loss = 1.6860, lr = 0.000272
+2025-09-27 15:13:39,750 - INFO - Step 2200: loss = 1.7332, lr = 0.000269
+2025-09-27 15:13:40,933 - INFO - Step 2300: loss = 1.6120, lr = 0.000266
+2025-09-27 15:13:42,116 - INFO - Step 2400: loss = 1.4837, lr = 0.000264
+2025-09-27 15:13:43,299 - INFO - Step 2500: loss = 1.5087, lr = 0.000261
+2025-09-27 15:13:43,304 - INFO - Validation loss: 1.7982
+2025-09-27 15:13:43,572 - INFO - Generated text: 
+QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+2025-09-27 15:13:44,754 - INFO - Step 2600: loss = 1.6074, lr = 0.000258
+2025-09-27 15:13:45,940 - INFO - Step 2700: loss = 1.6243, lr = 0.000255
+2025-09-27 15:13:47,129 - INFO - Step 2800: loss = 1.5781, lr = 0.000251
+2025-09-27 15:13:48,318 - INFO - Step 2900: loss = 1.4577, lr = 0.000248
+2025-09-27 15:13:49,508 - INFO - Step 3000: loss = 1.5585, lr = 0.000245
+2025-09-27 15:13:49,562 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_3000.pt
+2025-09-27 15:13:49,566 - INFO - Validation loss: 1.6963
+2025-09-27 15:13:49,834 - INFO - Generated text: 
+PARIS:
+May lover the we thou dead, I did myself, there
+That them for them tide to the duke, and to t
+2025-09-27 15:13:51,022 - INFO - Step 3100: loss = 1.6145, lr = 0.000241
+2025-09-27 15:13:52,212 - INFO - Step 3200: loss = 1.5442, lr = 0.000238
+2025-09-27 15:13:53,401 - INFO - Step 3300: loss = 1.4921, lr = 0.000234
+2025-09-27 15:13:54,589 - INFO - Step 3400: loss = 1.5296, lr = 0.000230
+2025-09-27 15:13:55,777 - INFO - Step 3500: loss = 1.5644, lr = 0.000227
+2025-09-27 15:13:55,782 - INFO - Validation loss: 1.8038
+2025-09-27 15:13:56,050 - INFO - Generated text: 
+An till have I have;
+To spark-so morn.
+
+HENRY BOLINGBROKE:
+Well, my learlen me tow heads! thou shalt
+2025-09-27 15:13:57,239 - INFO - Step 3600: loss = 1.4771, lr = 0.000223
+2025-09-27 15:13:58,430 - INFO - Step 3700: loss = 1.5607, lr = 0.000219
+2025-09-27 15:13:59,621 - INFO - Step 3800: loss = 1.4609, lr = 0.000215
+2025-09-27 15:14:00,810 - INFO - Step 3900: loss = 1.5184, lr = 0.000211
+2025-09-27 15:14:01,998 - INFO - Step 4000: loss = 1.3252, lr = 0.000207
+2025-09-27 15:14:02,060 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_4000.pt
+2025-09-27 15:14:02,065 - INFO - Validation loss: 1.6375
+2025-09-27 15:14:02,334 - INFO - Generated text: 
+
+
+To plays you would true to your chance!
+
+GLOUCESTER:
+Good so so world their this fool,
+And she to 
+2025-09-27 15:14:03,524 - INFO - Step 4100: loss = 1.4517, lr = 0.000203
+2025-09-27 15:14:04,715 - INFO - Step 4200: loss = 1.4087, lr = 0.000199
+2025-09-27 15:14:05,907 - INFO - Step 4300: loss = 1.4367, lr = 0.000195
+2025-09-27 15:14:07,098 - INFO - Step 4400: loss = 1.4543, lr = 0.000191
+2025-09-27 15:14:08,290 - INFO - Step 4500: loss = 1.4215, lr = 0.000186
+2025-09-27 15:14:08,295 - INFO - Validation loss: 1.7820
+2025-09-27 15:14:08,562 - INFO - Generated text: 
+SSIO:
+As:
+Thou shappy your percy; for his noth come
+To see in my lords.
+
+CORIOLANUS:
+Come, myou man,
+2025-09-27 15:14:09,751 - INFO - Step 4600: loss = 1.5264, lr = 0.000182
+2025-09-27 15:14:10,943 - INFO - Step 4700: loss = 1.4580, lr = 0.000178
+2025-09-27 15:14:12,135 - INFO - Step 4800: loss = 1.4078, lr = 0.000174
+2025-09-27 15:14:13,327 - INFO - Step 4900: loss = 1.4842, lr = 0.000169
+2025-09-27 15:14:14,561 - INFO - Final checkpoint saved: ../checkpoints/checkpoint_step_5000.pt
+2025-09-27 15:14:14,562 - INFO - Training completed!
+2025-09-27 15:15:17,058 - INFO - Starting training session
+2025-09-27 15:15:17,196 - INFO - Using device: cuda
+2025-09-27 15:15:17,197 - INFO - DDP enabled: False, World size: 1
+2025-09-27 15:15:17,314 - INFO - Vocabulary size: 65
+2025-09-27 15:15:18,045 - INFO - Compiling model
+2025-09-27 15:15:19,883 - INFO - Model compiled
+2025-09-27 15:15:19,884 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-27 15:15:47,031 - INFO - Step 0: loss = 758.2086, lr = 0.000000
+2025-09-27 15:16:07,346 - INFO - Step 100: loss = 45.0898, lr = 0.000300
+2025-09-27 15:16:27,800 - INFO - Step 200: loss = 26.1019, lr = 0.000300
+2025-09-27 15:16:48,349 - INFO - Step 300: loss = 18.2619, lr = 0.000299
+2025-09-27 15:17:08,958 - INFO - Step 400: loss = 7.5382, lr = 0.000299
+2025-09-27 15:17:29,609 - INFO - Step 500: loss = 4.9690, lr = 0.000298
+2025-09-27 15:17:41,164 - INFO - Validation loss: 5.4416
+2025-09-27 15:17:42,275 - INFO - Generated text: 
+oo w ll ffoome,
+Be me, foomed fomende, my I I I,
+Hour Inom mying,
+Mand I Inom I Inour ongennour mand
+2025-09-27 15:18:02,847 - INFO - Step 600: loss = 2.8258, lr = 0.000298
+2025-09-27 15:18:23,501 - INFO - Step 700: loss = 2.4549, lr = 0.000297
+2025-09-27 15:18:44,186 - INFO - Step 800: loss = 2.4098, lr = 0.000296
+2025-09-27 15:19:04,891 - INFO - Step 900: loss = 2.6009, lr = 0.000295
+2025-09-27 15:19:25,601 - INFO - Step 1000: loss = 2.0793, lr = 0.000294
+2025-09-27 15:19:26,264 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000.pt
+2025-09-27 15:19:26,329 - INFO - Validation loss: 2.3330
+2025-09-27 15:19:27,279 - INFO - Generated text: 
+Bust and Gere justion, that aressall haparesanter
+By all happore a arand preace, and and thaught,
+Th
+2025-09-27 15:19:47,984 - INFO - Step 1100: loss = 2.0387, lr = 0.000292
+2025-09-27 15:20:08,709 - INFO - Step 1200: loss = 1.9890, lr = 0.000291
+2025-09-27 15:20:29,436 - INFO - Step 1300: loss = 1.9525, lr = 0.000289
+2025-09-27 15:20:50,170 - INFO - Step 1400: loss = 1.7581, lr = 0.000287
+2025-09-27 15:21:10,909 - INFO - Step 1500: loss = 1.7868, lr = 0.000285
+2025-09-27 15:21:10,977 - INFO - Validation loss: 2.0890
+2025-09-27 15:21:11,927 - INFO - Generated text: 
+ave and him, and worthere word.
+
+MARCITIO:
+This aim, who, sir; thou would whill he
+This and than bra
+2025-09-27 15:21:32,661 - INFO - Step 1600: loss = 2.0172, lr = 0.000283
+2025-09-27 15:21:53,401 - INFO - Step 1700: loss = 1.7592, lr = 0.000281
+2025-09-27 15:22:14,146 - INFO - Step 1800: loss = 1.7844, lr = 0.000279
+2025-09-27 15:22:34,891 - INFO - Step 1900: loss = 1.6496, lr = 0.000277
+2025-09-27 15:22:55,639 - INFO - Step 2000: loss = 1.6827, lr = 0.000274
+2025-09-27 15:22:56,261 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_2000.pt
+2025-09-27 15:22:56,326 - INFO - Validation loss: 2.1922
+2025-09-27 15:22:57,275 - INFO - Generated text: 
+This it a fore me with his pelef.
+This fight creatus in firenticionsion time;
+The which hath is in w
+2025-09-27 15:23:18,003 - INFO - Step 2100: loss = 1.6715, lr = 0.000272
+2025-09-27 15:23:38,746 - INFO - Step 2200: loss = 1.6666, lr = 0.000269
+2025-09-27 15:23:59,490 - INFO - Step 2300: loss = 1.7152, lr = 0.000266
+2025-09-27 15:24:20,240 - INFO - Step 2400: loss = 1.6233, lr = 0.000264
+2025-09-27 15:24:40,990 - INFO - Step 2500: loss = 1.6786, lr = 0.000261
+2025-09-27 15:24:41,057 - INFO - Validation loss: 1.7874
+2025-09-27 15:24:42,003 - INFO - Generated text: 
+As now how how lented thy hard the chount of Edward weept at curse the gate
+Edward himselful weed; a
+2025-09-27 15:25:02,740 - INFO - Step 2600: loss = 1.6165, lr = 0.000258
+2025-09-27 15:25:23,482 - INFO - Step 2700: loss = 1.5440, lr = 0.000255
+2025-09-27 15:25:44,226 - INFO - Step 2800: loss = 1.5192, lr = 0.000251
+2025-09-27 15:26:04,976 - INFO - Step 2900: loss = 1.4687, lr = 0.000248
+2025-09-27 15:26:25,727 - INFO - Step 3000: loss = 1.5266, lr = 0.000245
+2025-09-27 15:26:26,393 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_3000.pt
+2025-09-27 15:26:26,458 - INFO - Validation loss: 2.1480
+2025-09-27 15:26:27,407 - INFO - Generated text: 
+Ovess'd, the she two detise; 'tis none, why have done,
+As this no proved now fetch'd his fear;
+For t
+2025-09-27 15:26:48,133 - INFO - Step 3100: loss = 1.3947, lr = 0.000241
+2025-09-27 15:27:08,877 - INFO - Step 3200: loss = 1.5504, lr = 0.000238
+2025-09-27 15:27:29,621 - INFO - Step 3300: loss = 1.3332, lr = 0.000234
+2025-09-27 15:27:50,364 - INFO - Step 3400: loss = 1.3338, lr = 0.000230
+2025-09-27 15:28:11,112 - INFO - Step 3500: loss = 1.4663, lr = 0.000227
+2025-09-27 15:28:11,180 - INFO - Validation loss: 1.9669
+2025-09-27 15:28:12,127 - INFO - Generated text: 
+VI hindius is earnel'd. and you, go will
+Till am I conjunce becomes. Couldius:
+You hus alones--
+
+Are
+2025-09-27 15:28:32,868 - INFO - Step 3600: loss = 1.4039, lr = 0.000223
+2025-09-27 15:28:53,613 - INFO - Step 3700: loss = 1.4833, lr = 0.000219
+2025-09-27 15:29:14,357 - INFO - Step 3800: loss = 1.2995, lr = 0.000215
+2025-09-27 15:29:35,101 - INFO - Step 3900: loss = 1.4702, lr = 0.000211
+2025-09-27 15:29:55,847 - INFO - Step 4000: loss = 1.3219, lr = 0.000207
+2025-09-27 15:29:56,528 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_4000.pt
+2025-09-27 15:29:56,593 - INFO - Validation loss: 1.9482
+2025-09-27 15:29:57,541 - INFO - Generated text: 
+Ge me mady grainst. Do clerd
+That me one: comest how honour sisters,
+Which honour sumblest, much oli
+2025-09-27 15:30:18,275 - INFO - Step 4100: loss = 1.2842, lr = 0.000203
+2025-09-27 15:30:39,017 - INFO - Step 4200: loss = 1.2886, lr = 0.000199
+2025-09-27 15:30:59,762 - INFO - Step 4300: loss = 1.3320, lr = 0.000195
+2025-09-27 15:31:20,510 - INFO - Step 4400: loss = 1.0993, lr = 0.000191
+2025-09-27 15:31:41,266 - INFO - Step 4500: loss = 1.3600, lr = 0.000186
+2025-09-27 15:31:41,333 - INFO - Validation loss: 2.0947
+2025-09-27 15:31:42,280 - INFO - Generated text: 
+Have myselfs' for thy visitor's pardon:
+I had come once, which precious palm fellows,
+Whiles thy fri
+2025-09-27 15:32:03,024 - INFO - Step 4600: loss = 1.1834, lr = 0.000182
+2025-09-27 15:32:23,777 - INFO - Step 4700: loss = 1.0687, lr = 0.000178
+2025-09-27 15:32:44,539 - INFO - Step 4800: loss = 1.3450, lr = 0.000174
+2025-09-27 15:33:05,307 - INFO - Step 4900: loss = 1.0285, lr = 0.000169
+2025-09-27 15:33:26,533 - INFO - Final checkpoint saved: ../checkpoints/checkpoint_step_5000.pt
+2025-09-27 15:33:26,533 - INFO - Training completed!
+2025-09-27 20:44:04,726 - INFO - Starting training session: 09/27/25 20:44:04
+2025-09-27 20:44:04,889 - INFO - Using device: cuda
+2025-09-27 20:44:04,889 - INFO - DDP enabled: False, World size: 1
+2025-09-27 20:44:05,245 - INFO - Compiling model
+2025-09-27 20:44:08,668 - INFO - Model compiled
+2025-09-27 20:44:08,669 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-27 20:44:37,862 - INFO - Step 0: loss = 128.3126, lr = 0.000000
+2025-09-27 20:44:38,300 - INFO - Step 100: loss = 6.5768, lr = 0.000300
+2025-09-27 20:44:38,735 - INFO - Step 200: loss = 3.1780, lr = 0.000300
+2025-09-27 20:44:39,172 - INFO - Step 300: loss = 2.8444, lr = 0.000299
+2025-09-27 20:44:39,605 - INFO - Step 400: loss = 2.6686, lr = 0.000299
+2025-09-27 20:44:40,040 - INFO - Step 500: loss = 2.8206, lr = 0.000298
+2025-09-27 20:44:49,990 - INFO - Validation loss: 3.0077
+2025-09-27 20:55:24,211 - INFO - Starting training session
+2025-09-27 20:55:24,322 - INFO - Using device: cuda
+2025-09-27 20:55:24,322 - INFO - DDP enabled: False, World size: 1
+2025-09-27 20:55:24,599 - INFO - Compiling model
+2025-09-27 20:55:26,541 - INFO - Model compiled
+2025-09-27 20:55:26,541 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-27 20:55:31,118 - INFO - Step 0: loss = 128.3126, lr = 0.000000
+2025-09-27 20:55:31,551 - INFO - Step 100: loss = 6.5768, lr = 0.000300
+2025-09-27 20:55:31,982 - INFO - Step 200: loss = 3.1780, lr = 0.000300
+2025-09-27 20:55:32,413 - INFO - Step 300: loss = 2.8444, lr = 0.000299
+2025-09-27 20:55:32,847 - INFO - Step 400: loss = 2.6686, lr = 0.000299
+2025-09-27 20:55:33,279 - INFO - Step 500: loss = 2.8206, lr = 0.000298
+2025-09-27 20:55:34,580 - INFO - Validation loss: 3.0077
+2025-09-27 20:55:35,089 - INFO - Generated text: 
+We ondeach s of mere of mare bareand of blle on,
+Ohe of mavach by lach nend mou baror of tit foul an
+2025-09-27 20:55:35,523 - INFO - Step 600: loss = 2.8944, lr = 0.000298
+2025-09-27 20:55:35,955 - INFO - Step 700: loss = 2.3974, lr = 0.000297
+2025-09-27 20:55:36,387 - INFO - Step 800: loss = 2.1827, lr = 0.000296
+2025-09-27 20:55:36,819 - INFO - Step 900: loss = 2.6148, lr = 0.000295
+2025-09-27 20:55:37,251 - INFO - Step 1000: loss = 2.1428, lr = 0.000294
+2025-09-27 20:55:37,291 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000.pt
+2025-09-27 20:55:37,293 - INFO - Validation loss: 2.3874
+2025-09-27 20:55:37,632 - INFO - Generated text: 
+IS asteee cure to ageeangencenes sto thatees weer ate sene we to gearences areen chis withich
+
+Forde
+2025-09-27 20:55:38,064 - INFO - Step 1100: loss = 2.2622, lr = 0.000292
+2025-09-27 20:55:38,495 - INFO - Step 1200: loss = 2.0719, lr = 0.000291
+2025-09-27 20:55:38,928 - INFO - Step 1300: loss = 2.2301, lr = 0.000289
+2025-09-27 20:55:39,360 - INFO - Step 1400: loss = 2.1781, lr = 0.000287
+2025-09-27 20:55:39,792 - INFO - Step 1500: loss = 2.1120, lr = 0.000285
+2025-09-27 20:55:39,794 - INFO - Validation loss: 2.4657
+2025-09-27 20:55:40,133 - INFO - Generated text: 
+Tus wild wet, words to then trowess stactilend
+Maither, were the tre his me trusen, farled, thanesss
+2025-09-27 20:55:40,566 - INFO - Step 1600: loss = 2.1813, lr = 0.000283
+2025-09-27 20:55:40,997 - INFO - Step 1700: loss = 2.0205, lr = 0.000281
+2025-09-27 20:55:41,429 - INFO - Step 1800: loss = 2.1805, lr = 0.000279
+2025-09-27 20:55:41,860 - INFO - Step 1900: loss = 2.0637, lr = 0.000277
+2025-09-27 20:55:42,298 - INFO - Step 2000: loss = 2.1078, lr = 0.000274
+2025-09-27 20:55:42,326 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_2000.pt
+2025-09-27 20:55:42,328 - INFO - Validation loss: 1.9454
+2025-09-27 20:55:42,669 - INFO - Generated text: 
+Sond it wold, thy won whall.
+
+
+DORK:
+Thos soll tall shim, willy wordis arting,
+This mare of with my 
+2025-09-27 20:55:43,101 - INFO - Step 2100: loss = 2.4145, lr = 0.000272
+2025-09-27 20:55:43,532 - INFO - Step 2200: loss = 1.8916, lr = 0.000269
+2025-09-27 20:55:43,962 - INFO - Step 2300: loss = 2.3122, lr = 0.000266
+2025-09-27 20:55:44,393 - INFO - Step 2400: loss = 1.9866, lr = 0.000264
+2025-09-27 20:55:44,823 - INFO - Step 2500: loss = 2.1985, lr = 0.000261
+2025-09-27 20:55:44,825 - INFO - Validation loss: 2.0067
+2025-09-27 20:55:45,164 - INFO - Generated text: 
+What nnows this pase piser themis serve the deatt at sentiold my tay shall an there spirt and atier.
+2025-09-27 20:55:45,596 - INFO - Step 2600: loss = 1.9263, lr = 0.000258
+2025-09-27 20:55:46,027 - INFO - Step 2700: loss = 2.0346, lr = 0.000255
+2025-09-27 20:55:46,458 - INFO - Step 2800: loss = 2.1313, lr = 0.000251
+2025-09-27 20:55:46,889 - INFO - Step 2900: loss = 2.0227, lr = 0.000248
+2025-09-27 20:55:47,319 - INFO - Step 3000: loss = 1.8776, lr = 0.000245
+2025-09-27 20:55:47,380 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_3000.pt
+2025-09-27 20:55:47,382 - INFO - Validation loss: 2.1765
+2025-09-27 20:55:47,722 - INFO - Generated text: 
+Ond mider ow mader with thone will mades, my with
+I mide, this mared:
+I are treet, my mord, ath, mut
+2025-09-27 20:55:48,153 - INFO - Step 3100: loss = 2.0356, lr = 0.000241
+2025-09-27 20:55:48,583 - INFO - Step 3200: loss = 1.9183, lr = 0.000238
+2025-09-27 20:55:49,014 - INFO - Step 3300: loss = 2.1638, lr = 0.000234
+2025-09-27 20:55:49,445 - INFO - Step 3400: loss = 1.7614, lr = 0.000230
+2025-09-27 20:55:49,876 - INFO - Step 3500: loss = 1.8611, lr = 0.000227
+2025-09-27 20:55:49,878 - INFO - Validation loss: 1.9779
+2025-09-27 20:55:50,217 - INFO - Generated text: 
+HENRY VI:
+Whate should a pared noble, are, thou as thou to thou are a such borncad band banch'd me t
+2025-09-27 20:55:50,649 - INFO - Step 3600: loss = 2.0662, lr = 0.000223
+2025-09-27 20:55:51,080 - INFO - Step 3700: loss = 1.6897, lr = 0.000219
+2025-09-27 20:55:51,513 - INFO - Step 3800: loss = 2.0278, lr = 0.000215
+2025-09-27 20:55:51,944 - INFO - Step 3900: loss = 1.8871, lr = 0.000211
+2025-09-27 20:55:52,376 - INFO - Step 4000: loss = 2.1669, lr = 0.000207
+2025-09-27 20:55:52,405 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_4000.pt
+2025-09-27 20:55:52,407 - INFO - Validation loss: 2.1026
+2025-09-27 20:55:52,745 - INFO - Generated text: 
+QUEENE EDWARD:
+To so, thee, who thee's to be the stars to beath tangle as sinded,
+The would thee to 
+2025-09-27 20:55:53,177 - INFO - Step 4100: loss = 1.7757, lr = 0.000203
+2025-09-27 20:55:53,609 - INFO - Step 4200: loss = 1.9681, lr = 0.000199
+2025-09-27 20:55:54,039 - INFO - Step 4300: loss = 1.6889, lr = 0.000195
+2025-09-27 20:55:54,471 - INFO - Step 4400: loss = 1.7228, lr = 0.000191
+2025-09-27 20:55:54,902 - INFO - Step 4500: loss = 1.9307, lr = 0.000186
+2025-09-27 20:55:54,904 - INFO - Validation loss: 1.7729
+2025-09-27 20:55:55,243 - INFO - Generated text: 
+Sing our will tong andring, whom thou this and orther and
+Migness of my the would this
+With to must 
+2025-09-27 20:55:55,675 - INFO - Step 4600: loss = 1.5971, lr = 0.000182
+2025-09-27 20:55:56,106 - INFO - Step 4700: loss = 2.0791, lr = 0.000178
+2025-09-27 20:55:56,537 - INFO - Step 4800: loss = 2.1594, lr = 0.000174
+2025-09-27 20:55:56,968 - INFO - Step 4900: loss = 1.8372, lr = 0.000169
+2025-09-27 20:55:57,455 - INFO - Final checkpoint saved: ../checkpoints/checkpoint_step_5000.pt
+2025-09-27 20:55:57,455 - INFO - Training completed!
+2025-09-27 20:57:08,962 - INFO - Starting training session
+2025-09-27 20:57:09,069 - INFO - Using device: cuda
+2025-09-27 20:57:09,069 - INFO - DDP enabled: False, World size: 1
+2025-09-27 20:57:09,333 - INFO - Model has: 798401 parameters
+2025-09-27 20:57:09,333 - INFO - Compiling model
+2025-09-27 20:57:11,256 - INFO - Model compiled
+2025-09-27 20:57:11,256 - INFO - Training for 5000 steps with checkpointing every 1000 steps
+2025-09-27 20:57:15,820 - INFO - Step 0: loss = 128.3126, lr = 0.000000
+2025-09-27 20:57:16,264 - INFO - Step 100: loss = 6.5768, lr = 0.000300
+2025-09-27 20:57:16,702 - INFO - Step 200: loss = 3.1780, lr = 0.000300
+2025-09-27 20:57:17,141 - INFO - Step 300: loss = 2.8444, lr = 0.000299
+2025-09-27 20:57:17,581 - INFO - Step 400: loss = 2.6686, lr = 0.000299
+2025-09-27 20:57:18,022 - INFO - Step 500: loss = 2.8206, lr = 0.000298
+2025-09-27 20:57:19,350 - INFO - Validation loss: 3.0077
+2025-09-27 20:57:19,863 - INFO - Generated text: 
+We ondeach s of mere of mare bareand of blle on,
+Ohe of mavach by lach nend mou baror of tit foul an
+2025-09-27 20:57:20,304 - INFO - Step 600: loss = 2.8944, lr = 0.000298
+2025-09-27 20:57:20,745 - INFO - Step 700: loss = 2.3974, lr = 0.000297
+2025-09-27 20:57:21,184 - INFO - Step 800: loss = 2.1827, lr = 0.000296
+2025-09-27 20:57:21,623 - INFO - Step 900: loss = 2.6148, lr = 0.000295
+2025-09-27 20:57:22,062 - INFO - Step 1000: loss = 2.1428, lr = 0.000294
+2025-09-27 20:57:22,117 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000.pt
+2025-09-27 20:57:22,120 - INFO - Validation loss: 2.3874
+2025-09-27 20:57:22,465 - INFO - Generated text: 
+IS asteee cure to ageeangencenes sto thatees weer ate sene we to gearences areen chis withich
+
+Forde
+2025-09-27 20:57:22,906 - INFO - Step 1100: loss = 2.2622, lr = 0.000292
+2025-09-27 20:57:23,348 - INFO - Step 1200: loss = 2.0719, lr = 0.000291
+2025-09-27 20:57:23,788 - INFO - Step 1300: loss = 2.2301, lr = 0.000289
+2025-09-27 20:57:24,225 - INFO - Step 1400: loss = 2.1781, lr = 0.000287
+2025-09-27 20:57:24,664 - INFO - Step 1500: loss = 2.1120, lr = 0.000285
+2025-09-27 20:57:24,666 - INFO - Validation loss: 2.4657
+2025-09-27 20:57:25,010 - INFO - Generated text: 
+Tus wild wet, words to then trowess stactilend
+Maither, were the tre his me trusen, farled, thanesss
+2025-09-27 20:57:25,450 - INFO - Step 1600: loss = 2.1813, lr = 0.000283
+2025-09-27 20:57:25,889 - INFO - Step 1700: loss = 2.0205, lr = 0.000281
+2025-09-27 20:57:26,330 - INFO - Step 1800: loss = 2.1805, lr = 0.000279
+2025-09-27 20:57:26,774 - INFO - Step 1900: loss = 2.0637, lr = 0.000277
+2025-09-27 20:57:27,213 - INFO - Step 2000: loss = 2.1078, lr = 0.000274
+2025-09-27 20:57:27,240 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_2000.pt
+2025-09-27 20:57:27,243 - INFO - Validation loss: 1.9454
+2025-09-27 20:57:27,588 - INFO - Generated text: 
+Sond it wold, thy won whall.
+
+
+DORK:
+Thos soll tall shim, willy wordis arting,
+This mare of with my 
+2025-09-27 20:57:28,028 - INFO - Step 2100: loss = 2.4145, lr = 0.000272
+2025-09-27 20:57:28,467 - INFO - Step 2200: loss = 1.8916, lr = 0.000269
+2025-09-27 20:57:28,906 - INFO - Step 2300: loss = 2.3122, lr = 0.000266
+2025-09-27 20:57:29,346 - INFO - Step 2400: loss = 1.9866, lr = 0.000264
+2025-09-27 20:57:29,786 - INFO - Step 2500: loss = 2.1985, lr = 0.000261
+2025-09-27 20:57:29,788 - INFO - Validation loss: 2.0067
+2025-09-27 20:57:30,132 - INFO - Generated text: 
+What nnows this pase piser themis serve the deatt at sentiold my tay shall an there spirt and atier.
+2025-09-27 20:57:30,572 - INFO - Step 2600: loss = 1.9263, lr = 0.000258
+2025-09-27 20:57:31,010 - INFO - Step 2700: loss = 2.0346, lr = 0.000255
+2025-09-27 20:57:31,449 - INFO - Step 2800: loss = 2.1313, lr = 0.000251
+2025-09-27 20:57:31,888 - INFO - Step 2900: loss = 2.0227, lr = 0.000248
+2025-09-27 20:57:32,325 - INFO - Step 3000: loss = 1.8776, lr = 0.000245
+2025-09-27 20:57:32,389 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_3000.pt
+2025-09-27 20:57:32,391 - INFO - Validation loss: 2.1765
+2025-09-27 20:57:32,734 - INFO - Generated text: 
+Ond mider ow mader with thone will mades, my with
+I mide, this mared:
+I are treet, my mord, ath, mut
+2025-09-27 20:57:33,173 - INFO - Step 3100: loss = 2.0356, lr = 0.000241
+2025-09-27 20:57:33,611 - INFO - Step 3200: loss = 1.9183, lr = 0.000238
+2025-09-27 20:57:34,050 - INFO - Step 3300: loss = 2.1638, lr = 0.000234
+2025-09-27 20:57:34,490 - INFO - Step 3400: loss = 1.7614, lr = 0.000230
+2025-09-27 20:57:34,930 - INFO - Step 3500: loss = 1.8611, lr = 0.000227
+2025-09-27 20:57:34,932 - INFO - Validation loss: 1.9779
+2025-09-27 20:57:35,275 - INFO - Generated text: 
+HENRY VI:
+Whate should a pared noble, are, thou as thou to thou are a such borncad band banch'd me t
+2025-09-27 20:57:35,716 - INFO - Step 3600: loss = 2.0662, lr = 0.000223
+2025-09-27 20:57:36,156 - INFO - Step 3700: loss = 1.6897, lr = 0.000219
+2025-09-27 20:57:36,596 - INFO - Step 3800: loss = 2.0278, lr = 0.000215
+2025-09-27 20:57:37,037 - INFO - Step 3900: loss = 1.8871, lr = 0.000211
+2025-09-27 20:57:37,476 - INFO - Step 4000: loss = 2.1669, lr = 0.000207
+2025-09-27 20:57:37,529 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_4000.pt
+2025-09-27 20:57:37,531 - INFO - Validation loss: 2.1026
+2025-09-27 20:57:37,875 - INFO - Generated text: 
+QUEENE EDWARD:
+To so, thee, who thee's to be the stars to beath tangle as sinded,
+The would thee to 
+2025-09-27 20:57:38,316 - INFO - Step 4100: loss = 1.7757, lr = 0.000203
+2025-09-27 20:57:38,757 - INFO - Step 4200: loss = 1.9681, lr = 0.000199
+2025-09-27 20:57:39,198 - INFO - Step 4300: loss = 1.6889, lr = 0.000195
+2025-09-27 20:57:39,638 - INFO - Step 4400: loss = 1.7228, lr = 0.000191
+2025-09-27 20:57:40,077 - INFO - Step 4500: loss = 1.9307, lr = 0.000186
+2025-09-27 20:57:40,079 - INFO - Validation loss: 1.7729
+2025-09-27 20:57:40,422 - INFO - Generated text: 
+Sing our will tong andring, whom thou this and orther and
+Migness of my the would this
+With to must 
+2025-09-27 20:57:40,863 - INFO - Step 4600: loss = 1.5971, lr = 0.000182
+2025-09-27 20:57:41,303 - INFO - Step 4700: loss = 2.0791, lr = 0.000178
+2025-09-27 20:57:41,742 - INFO - Step 4800: loss = 2.1594, lr = 0.000174
+2025-09-27 20:57:42,183 - INFO - Step 4900: loss = 1.8372, lr = 0.000169
+2025-09-27 20:57:42,674 - INFO - Final checkpoint saved: ../checkpoints/checkpoint_step_5000.pt
+2025-09-27 20:57:42,675 - INFO - Training completed!

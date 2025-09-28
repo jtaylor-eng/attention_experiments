@@ -12,17 +12,86 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data.distributed import DistributedSampler
 import torch.distributed as dist
 from typing import Literal
+import numpy as np
+from abc import ABC, abstractmethod
+from transformers import LlamaTokenizer
 
+
+# --- TOKENIZATION ---
+#provides uniform handling for various tokenizers
+class CustomTokenizer(ABC):
+    @abstractmethod
+    def encode(self, inp: str) -> torch.Tensor: pass
+
+    @abstractmethod
+    def encode(self, inp: torch.Tensor) -> str: pass
+
+class LlamaTokenizerWrapper(CustomTokenizer):
+    def __init__(self, path='meta-llama/Llama-2-7b-hf'):
+        self.tokenizer = LlamaTokenizer.from_pretrained(path)
+
+    def encode(self, inp): return torch.tensor(self.tokenizer.encode(inp), dtype=torch.long)
+    def decode(self, inp): return self.tokenizer.decode(inp)
+
+class CharacterLevelTokenizerWrapper(CustomTokenizer):
+    def __init__(self, stoi, itos):
+        self.stoi = stoi
+        self.itos = itos
+
+    def encode(self, inp): return torch.tensor([self.stoi[c] for c in inp], dtype=torch.long)
+    def decode(self, inp): return ''.join([self.itos[int(i)] for i in inp])
+
+
+# --- DATALOADERS ---
 class DataLoader:
     def __init__(
         self,
-        data_path,
-        block_size,
-        batch_size,
-        rank=0, 
-        world_size=1
+        data_path: str,
+        block_size: int,
+        batch_size: int,
+        rank: int, 
+        world_size: int,
+        split: Literal['train', 'val'],
     ):
-        ...
+        self.block_size = block_size
+        self.batch_size = batch_size
+        self.data_path  = data_path
+
+        shards = sorted(
+            os.path.join(self.data_path, s)
+            for s in os.listdir(self.data_path)
+            if split in s
+        )
+        assert len(shards) > 0, f'no shards found for split {split}'
+        print(f'found {len(shards)} shards for split {split}')
+
+        self.shards = shards
+        self.reset()
+
+    def _load_tokens(filename):
+        npt = np.load(filename, allow_pickle=True)
+        npt = npt.astype(np.int32)
+        return torch.tensor(npt, dtype=torch.long)
+
+    def reset(self):
+        # state, init at shard zero
+        self.current_shard = 0
+        self.tokens = self._load_tokens(self.shards[self.current_shard])
+        self.current_position = 0
+
+    def get_batch(self):
+        B, T = self.B, self.T
+        buf = self.tokens[self.current_position : self.current_position+B*T+1]
+        x = (buf[:-1]).view(B, T) # inputs
+        y = (buf[1:]).view(B, T) # targets
+        # advance the position in the tensor
+        self.current_position += B * T
+        # if loading the next batch would be out of bounds, advance to next shard
+        if self.current_position + (B * T + 1) > len(self.tokens):
+            self.current_shard = (self.current_shard + 1) % len(self.shards)
+            self.tokens = self._load_tokens(self.shards[self.current_shard])
+            self.current_position = 0
+        return x, y
 
 
 """
@@ -37,7 +106,7 @@ class DataLoaderTxt:
         batch_size,
         train_split=0.9,
         rank=0, 
-        world_size=1
+        world_size=1,
     ):
         """Data loader for one text file, uses character level tokenization."""
         self.block_size = block_size
@@ -59,11 +128,12 @@ class DataLoaderTxt:
         n = int(train_split * len(data))
         self.train_data = data[:n]
         self.val_data = data[n:]
-    
-    def encode(self, s): return [self.stoi[c] for c in s]
-    
-    def decode(self, l): return ''.join([self.itos[i] for i in l])
-    
+
+        self._tokenizer = CharacterLevelTokenizerWrapper(stoi=self.stoi, itos=self.itos)
+
+    @property
+    def tokenizer(self): return self._tokenizer
+
     def get_batch(self, split):
         data = self.train_data if split == 'train' else self.val_data
         
@@ -76,7 +146,7 @@ class DataLoaderTxt:
         return x, y
 
 
-#Settings needed in training transformer architecture
+# -- TRANSFORMER PARAMS --
 @dataclass
 class TransformerConfig:
     vocab_size: int
@@ -88,13 +158,15 @@ class TransformerConfig:
     rope_theta: float = 10000.0
 
 
+# -- LEARNING RATE -- 
 def get_lr(it, max_lr, min_lr, warmup_steps):
     if it < warmup_steps: return max_lr * it / warmup_steps
     return min_lr + (max_lr - min_lr) * 0.5 * (1 + math.cos(math.pi * (it - warmup_steps) / (10000 - warmup_steps)))
 
-def save_checkpoint(model, optimizer, step, loss, checkpoint_dir="checkpoints"):
+# -- CHECKPOINTING --
+def save_checkpoint(model, optimizer, step, loss, checkpoint_dir='../checkpoints'):
     os.makedirs(checkpoint_dir, exist_ok=True)
-    checkpoint_path = os.path.join(checkpoint_dir, f"checkpoint_step_{step}.pt")
+    checkpoint_path = os.path.join(checkpoint_dir, f'checkpoint_step_{step}.pt')
     
     torch.save({
         'step': step,
@@ -105,7 +177,8 @@ def save_checkpoint(model, optimizer, step, loss, checkpoint_dir="checkpoints"):
     
     return checkpoint_path
 
-def setup_logging(log_file="log.txt"):
+# -- LOGGING -- 
+def setup_logging(log_file='log.txt'):
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s',
@@ -116,6 +189,7 @@ def setup_logging(log_file="log.txt"):
     )
     return logging.getLogger(__name__)
 
+# -- DDP --
 def setup_ddp():
     if 'RANK' in os.environ and 'WORLD_SIZE' in os.environ:
         rank = int(os.environ['RANK'])
@@ -130,5 +204,5 @@ def setup_ddp():
     
     return True, rank, world_size, local_rank
 
-def cleanup_ddp():
+def cleanup_ddp(): 
     if dist.is_initialized(): dist.destroy_process_group()

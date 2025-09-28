@@ -7,8 +7,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --job-name=lm_train
-#SBATCH --output=myjob.%j.out
-#SBATCH --error=myjob.%j.err
+#SBATCH --output=std_out_err/lm_train.%j.out
+#SBATCH --error=std_out_err/lm_train.%j.err
 
 module load miniconda3/24.1.2-py310
 module load cuda/12.4.1

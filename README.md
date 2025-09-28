@@ -10,7 +10,7 @@
 
 # TODO:
  - [x] seperate files / better repo structure (train loop, architecture, utils,  experiments, logging)
- - [ ] fix logging pathing (sbatch)
+ - [x] fix logging pathing (sbatch)
  - [ ] fix DDP
  - [ ] consider fp precision for fast train / inference
 
