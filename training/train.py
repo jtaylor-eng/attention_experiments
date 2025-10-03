@@ -12,17 +12,42 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data.distributed import DistributedSampler
 import torch.distributed as dist
 from typing import Literal
+import argparse
 
 import utils
 from softmax_fns import *
 from architecture import LM
+
+os.environ['ICC_DISABLE_DEPRECATION_WARNING'] = '1' #getting annoying compile deprecation warning
+
+# def _parse_args():
+#     parser = argparse.ArgumentParser(description='Arguments for controlling language model training.')
+#     parser.add_argument('--test_run', type=bool, default=False, help='Whether to run training loop on small txt file, overrides all other arguments.')
+#     parser.add_argument('--softmax_implementation', type=str)
+#     parser.add_argument('--compile_model', type=bool, default=True, help='Whether to compile torch LM model obeject.')
+#     parser.add_argument('--tokenizer', type=str, help='vocab_size derived from this')
+#     parser.add_argument('--block_size', type=int)
+#     parser.add_argument('--num_layers', type=int)
+#     parser.add_argument('--num_heads', type=int)
+#     parser.add_argument('--dim_emb', type=int)
+#     parser.add_argument('--data_path', type=str)
+#     parser.add_argument('--block_size', type=int)
+#     parser.add_argument('--batch_size', type=int)
+#     parser.add_argument('--max_lr', type=float)
+#     parser.add_argument('--warmup_steps', type=int)
+#     parser.add_argument('--max_steps', type=int)
+#     parser.add_argument('--checkpoint_steps', type=int)
+#     parser.add_argument('--micro_batch_size', type=int, default=16, help='How many micro batches to update weights on')
+#     parser.add_argument('--grad_accum_steps', type=int)   
+# 
+#     return parser.parse_args()
 
 #TODO: probably best transferred to command line args at some point
 #Set to True to run training loop with ../data/tiny_shakespeare.txt
 TEST_RUN = False
 COMPILE_MODEL = True
 
-SOFTMAX_IMPLEMENTATION: Literal[TraditionalSoftmax,AdaptiveSoftmax,TopKSoftmax] = TopKSoftmax()
+SOFTMAX_IMPLEMENTATION: Literal[TraditionalSoftmax,AdaptiveSoftmax,TopKSoftmax] = TraditionalSoftmax()
 
 if TEST_RUN:
     #no ddp for test run
@@ -63,7 +88,7 @@ else:
     DATA_LOADER = utils.DataLoader(
         data_path='../data/c4_en_llama2_tokens',
         block_size=TRANSFORMER_CONFIG.block_size,
-        batch_size=16,
+        batch_size=48,
         rank=rank,
         world_size=world_size,
     )
@@ -101,7 +126,7 @@ if __name__ == '__main__':
     max_lr = 6e-4
     min_lr = max_lr * 0.1
     warmup_steps = 250
-    max_steps = 5000
+    max_steps = 20000
     checkpoint_steps = 1000
     
     # Gradient accumulation settings

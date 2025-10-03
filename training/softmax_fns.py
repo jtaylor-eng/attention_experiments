@@ -42,8 +42,10 @@ class AdaptiveSoftmax(CustomSoftmaxFn):
         return out
 
     def translate_logits(self, logits: torch.Tensor, dim: int) -> torch.Tensor:
-        probs = F.softmax(logits, dim=dim).to(torch.float32)
-        entropy = -torch.sum(probs * torch.log(probs + 1e-9), dim=-1, keepdim=True)
+        with torch.no_grad():
+            probs = F.softmax(logits, dim=dim).to(torch.float32)
+            log_probs = F.log_softmax(logits, dim=dim).to(torch.float32)
+            entropy = -torch.sum(probs * log_probs, dim=-1, keepdim=True)
         
         poly_fit = self.poly_fit.to(logits.device)
         one = self.one.to(logits.device)

@@ -14,52 +14,6 @@ import torch.distributed as dist
 from typing import Literal
 from utils import TransformerConfig
 
-class RoPE(nn.Module):
-    def __init__(self, config):
-        super().__init__()
-        self.head_dim = config.dim_emb // config.num_heads
-        self.theta = config.rope_theta
-        
-        inv_freq = 1.0 / (self.theta ** (torch.arange(0, self.head_dim, 2).float() / self.head_dim))
-        self.register_buffer('inv_freq', inv_freq)
-    
-    def forward(self, q, k, seq_len):
-        # q, k shape: (B, nh, T, hs)
-        B, nh, T, hs = q.shape
-        
-        t = torch.arange(T, device=q.device, dtype=self.inv_freq.dtype)
-        freqs = torch.outer(t, self.inv_freq)
-        emb = torch.cat((freqs, freqs), dim=-1)
-        
-        # Reshape to match input dimensions: (1, 1, T, hs)
-        cos = emb.cos().unsqueeze(0).unsqueeze(0)
-        sin = emb.sin().unsqueeze(0).unsqueeze(0)
-        
-        q_rot = self._apply_rotary_pos_emb(q, cos, sin)
-        k_rot = self._apply_rotary_pos_emb(k, cos, sin)
-        
-        return q_rot, k_rot
-    
-    def _apply_rotary_pos_emb(self, x, cos, sin):
-        # x shape: (B, nh, T, hs)
-        # cos, sin shape: (1, 1, T, hs)
-        
-        # Split x into two halves along the last dimension
-        x1 = x[..., :x.size(-1)//2]  # First half
-        x2 = x[..., x.size(-1)//2:]  # Second half
-        
-        # Split cos and sin similarly
-        cos = cos[..., :cos.size(-1)//2]
-        sin = sin[..., :sin.size(-1)//2]
-        
-        # Apply rotation
-        rotated = torch.cat([
-            x1 * cos - x2 * sin,
-            x1 * sin + x2 * cos
-        ], dim=-1)
-        
-        return rotated
-
 
 class MLP(nn.Module):
     def __init__(self, config):
@@ -135,6 +89,54 @@ class TransformerBlock(nn.Module):
         x = x + self.attn(self.ln_1(x))
         x = x + self.mlp(self.ln_2(x))
         return x
+
+
+class RoPE(nn.Module):
+    def __init__(self, config):
+        super().__init__()
+        self.head_dim = config.dim_emb // config.num_heads
+        self.theta = config.rope_theta
+        
+        inv_freq = 1.0 / (self.theta ** (torch.arange(0, self.head_dim, 2).float() / self.head_dim))
+        self.register_buffer('inv_freq', inv_freq)
+        
+        # Cache for embeddings
+        self.register_buffer("cached_emb", None, persistent=False)
+        self.cached_seq_len = 0
+
+    def _update_cache(self, seq_len, device):
+        if seq_len > self.cached_seq_len:
+            self.cached_seq_len = seq_len
+            t = torch.arange(seq_len, device=device, dtype=self.inv_freq.dtype)
+            freqs = torch.outer(t, self.inv_freq)
+            emb = torch.cat((freqs, freqs), dim=-1)
+            self.cached_emb = emb.unsqueeze(0).unsqueeze(0) # Shape: (1, 1, T, hs)
+
+    def forward(self, q, k, seq_len):
+        B, nh, T, hs = q.shape
+        self._update_cache(T, q.device)
+        
+        # Slice the cache to the current sequence length
+        cos = self.cached_emb[:, :, :T, :].cos()
+        sin = self.cached_emb[:, :, :T, :].sin()
+        
+        q_rot = self._apply_rotary_pos_emb(q, cos, sin)
+        k_rot = self._apply_rotary_pos_emb(k, cos, sin)
+        
+        return q_rot, k_rot
+
+    # _apply_rotary_pos_emb method remains the same
+    def _apply_rotary_pos_emb(self, x, cos, sin):
+        # ... (your existing implementation is correct)
+        x1 = x[..., :x.size(-1)//2]
+        x2 = x[..., x.size(-1)//2:]
+        cos_half = cos[..., :cos.size(-1)//2]
+        sin_half = sin[..., :sin.size(-1)//2]
+        rotated = torch.cat([
+            x1 * cos_half - x2 * sin_half,
+            x1 * sin_half + x2 * cos_half
+        ], dim=-1)
+        return rotated
 
 
 class LM(nn.Module):
