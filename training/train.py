@@ -47,7 +47,7 @@ os.environ['ICC_DISABLE_DEPRECATION_WARNING'] = '1' #getting annoying compile de
 TEST_RUN = False
 COMPILE_MODEL = True
 
-SOFTMAX_IMPLEMENTATION: Literal[TraditionalSoftmax,AdaptiveSoftmax,TopKSoftmax] = TraditionalSoftmax()
+SOFTMAX_IMPLEMENTATION = TraditionalSoftmax()
 
 if TEST_RUN:
     #no ddp for test run
@@ -112,15 +112,15 @@ if __name__ == '__main__':
 
     model = LM(config=TRANSFORMER_CONFIG).to(device)
     logger.info(f'Model has: {sum(p.numel() for p in model.parameters())} parameters')
-    # Wrap model with DDP
+
+    if COMPILE_MODEL:
+        if rank == 0: logger.info('Compiling model on all ranks...')
+        model = torch.compile(model)
+        if rank == 0: logger.info('Model compiled.')
+
     if is_ddp:
         model = DDP(model, device_ids=[local_rank], output_device=local_rank)
         if rank == 0: logger.info('Model wrapped with DDP')
-    
-    if rank==0 and COMPILE_MODEL:
-        logger.info('Compiling model') 
-        model = torch.compile(model)
-        logger.info('Model compiled')
 
     # Training hyperparameters
     max_lr = 6e-4

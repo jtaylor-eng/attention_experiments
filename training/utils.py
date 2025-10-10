@@ -25,7 +25,7 @@ class CustomTokenizer(ABC):
     def encode(self, inp: str) -> torch.Tensor: pass
 
     @abstractmethod
-    def encode(self, inp: torch.Tensor) -> str: pass
+    def decode(self, inp: torch.Tensor) -> str: pass
 
 class LlamaTokenizerWrapper(CustomTokenizer):
     def __init__(self, path='meta-llama/Llama-2-7b-hf'):
@@ -57,18 +57,25 @@ class DataLoader:
         self.block_size = block_size
         self.batch_size = batch_size
         self.data_path  = data_path
+        self.rank = rank
+        self.world_size = world_size
 
-        self.train_shards = sorted(
+        all_train_shards = sorted(
             os.path.join(self.data_path, s)
             for s in os.listdir(self.data_path)
             if 'train' in s
         )
-
-        self.val_shards = sorted(
+        all_val_shards = sorted(
             os.path.join(self.data_path, s)
             for s in os.listdir(self.data_path)
             if 'val' in s
-        )      
+        )
+
+        self.train_shards = all_train_shards[self.rank::self.world_size]
+        self.val_shards = all_val_shards[self.rank::self.world_size]
+        
+        assert len(self.train_shards) > 0, f"Rank {self.rank} received no training shards."
+        assert len(self.val_shards) > 0, f"Rank {self.rank} received no validation shards."
 
         self.reset(split='train')
         self.reset(split='val')
