@@ -1,4 +1,4 @@
-#Training loop
+# train.py (with added diagnostics)
 import os
 import math
 import time
@@ -14,45 +14,25 @@ import torch.distributed as dist
 from typing import Literal
 import argparse
 
-import utils
-from softmax_fns import *
-from architecture import LM
+import training.utils
+from training.softmax_fns import *
+from training.architecture import LM
 
-os.environ['ICC_DISABLE_DEPRECATION_WARNING'] = '1' #getting annoying compile deprecation warning
+os.environ['ICC_DISABLE_DEPRECATION_WARNING'] = '1'
 
-# def _parse_args():
-#     parser = argparse.ArgumentParser(description='Arguments for controlling language model training.')
-#     parser.add_argument('--test_run', type=bool, default=False, help='Whether to run training loop on small txt file, overrides all other arguments.')
-#     parser.add_argument('--softmax_implementation', type=str)
-#     parser.add_argument('--compile_model', type=bool, default=True, help='Whether to compile torch LM model obeject.')
-#     parser.add_argument('--tokenizer', type=str, help='vocab_size derived from this')
-#     parser.add_argument('--block_size', type=int)
-#     parser.add_argument('--num_layers', type=int)
-#     parser.add_argument('--num_heads', type=int)
-#     parser.add_argument('--dim_emb', type=int)
-#     parser.add_argument('--data_path', type=str)
-#     parser.add_argument('--block_size', type=int)
-#     parser.add_argument('--batch_size', type=int)
-#     parser.add_argument('--max_lr', type=float)
-#     parser.add_argument('--warmup_steps', type=int)
-#     parser.add_argument('--max_steps', type=int)
-#     parser.add_argument('--checkpoint_steps', type=int)
-#     parser.add_argument('--micro_batch_size', type=int, default=16, help='How many micro batches to update weights on')
-#     parser.add_argument('--grad_accum_steps', type=int)   
-# 
-#     return parser.parse_args()
-
-#TODO: probably best transferred to command line args at some point
-#Set to True to run training loop with ../data/tiny_shakespeare.txt
+# --- Configuration ---
 TEST_RUN = False
 COMPILE_MODEL = True
-
 SOFTMAX_IMPLEMENTATION = TraditionalSoftmax()
 
+# --- Gradient accumulation settings ---
+micro_batch_size = 8
+grad_accum_steps = 4
+
 if TEST_RUN:
-    #no ddp for test run
+    # (No changes needed in this block)
     is_ddp, rank, world_size, local_rank = False, 0, 1, 0
-    TRANSFORMER_CONFIG = utils.TransformerConfig(
+    TRANSFORMER_CONFIG = training.utils.TransformerConfig(
         vocab_size=...,#will be updated by DataLoaderTxt which builds character level tokenizer
         block_size=256,
         num_layers=4,
@@ -61,7 +41,7 @@ if TEST_RUN:
         softmax_implementation=SOFTMAX_IMPLEMENTATION,
     )
 
-    DATA_LOADER = utils.DataLoaderTxt(
+    DATA_LOADER = training.utils.DataLoaderTxt(
         data_path= '../data/tiny_shakespeare.txt',
         block_size=TRANSFORMER_CONFIG.block_size,
         batch_size=4,
@@ -72,11 +52,18 @@ if TEST_RUN:
 
     TOKENIZER = DATA_LOADER.tokenizer
 else:
-    #setup ddp
-    is_ddp, rank, world_size, local_rank = utils.setup_ddp()
-    TOKENIZER = utils.LlamaTokenizerWrapper('meta-llama/Llama-2-7b-hf')
+    is_ddp, rank, world_size, local_rank = training.utils.setup_ddp()
+    if is_ddp:
+        dist.barrier()
+        if rank == 0: print('DDP setup complete. All processes checked in.')
 
-    TRANSFORMER_CONFIG = utils.TransformerConfig(
+    print(f'Rank {rank}: Loading tokenizer...')
+    TOKENIZER = training.utils.LlamaTokenizerWrapper('meta-llama/Llama-2-7b-hf')
+    if is_ddp:
+        dist.barrier()
+        if rank == 0: print('Tokenizer loaded by all processes.')
+
+    TRANSFORMER_CONFIG = training.utils.TransformerConfig(
         vocab_size=TOKENIZER.get_vocab_size(),
         block_size=1024,
         num_layers=12,
@@ -84,19 +71,23 @@ else:
         dim_emb=768,
         softmax_implementation=SOFTMAX_IMPLEMENTATION,
     )
-    
-    DATA_LOADER = utils.DataLoader(
+    if rank == 0: print('Transformer config created.')
+
+    print(f'Rank {rank}: Initializing DataLoader...')
+
+    DATA_LOADER = training.utils.DataLoader(
         data_path='../data/c4_en_llama2_tokens',
         block_size=TRANSFORMER_CONFIG.block_size,
-        batch_size=48,
+        batch_size=micro_batch_size,
         rank=rank,
         world_size=world_size,
     )
-
+    if is_ddp:
+        dist.barrier()
+        if rank == 0: print('DataLoader initialized by all processes.')
 
 if __name__ == '__main__':
-    #setup logging
-    if rank == 0: logger = utils.setup_logging('log.txt')
+    if rank == 0: logger = training.utils.setup_logging('log.txt')
     else:
         logger = logging.getLogger(__name__)
         logger.setLevel(logging.INFO)
@@ -130,8 +121,8 @@ if __name__ == '__main__':
     checkpoint_steps = 1000
     
     # Gradient accumulation settings
-    micro_batch_size = 16
-    grad_accum_steps = 8
+    micro_batch_size = 8
+    grad_accum_steps = 4
     effective_batch_size = micro_batch_size * grad_accum_steps
     if rank == 0: logger.info(f'Effective batch size: {effective_batch_size} (micro_batch={micro_batch_size} x grad_accum={grad_accum_steps})')
 
@@ -176,11 +167,11 @@ if __name__ == '__main__':
             loss_accum = loss_accum / world_size
         
         # Gradient clipping
-        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        torch.nn.training.utils.clip_grad_norm_(model.parameters(), 1.0)
         optimizer.step()
         
         # Learning rate scheduling
-        lr = utils.get_lr(step, max_lr, min_lr, warmup_steps)
+        lr = training.utils.get_lr(step, max_lr, min_lr, warmup_steps)
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
         
@@ -192,7 +183,7 @@ if __name__ == '__main__':
         if step % checkpoint_steps == 0 and step > 0 and rank == 0:
             # Get the underlying model for checkpointing
             model_to_save = model.module if is_ddp else model
-            checkpoint_path = utils.save_checkpoint(model_to_save, optimizer, step, loss_accum.item())
+            checkpoint_path = training.utils.save_checkpoint(model_to_save, optimizer, step, loss_accum.item())
             logger.info(f'Checkpoint saved: {checkpoint_path}')
         
         # Validation (only on rank 0)
@@ -216,8 +207,8 @@ if __name__ == '__main__':
     # Final checkpoint (only on rank 0)
     if rank == 0:
         model_to_save = model.module if is_ddp else model
-        final_checkpoint_path = utils.save_checkpoint(model_to_save, optimizer, max_steps, loss_accum.item())
+        final_checkpoint_path = training.utils.save_checkpoint(model_to_save, optimizer, max_steps, loss_accum.item())
         logger.info(f'Final checkpoint saved: {final_checkpoint_path}')
         logger.info('Training completed!')
     
-    utils.cleanup_ddp()
+    training.utils.cleanup_ddp()

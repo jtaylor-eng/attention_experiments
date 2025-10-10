@@ -16,7 +16,7 @@ import numpy as np
 from abc import ABC, abstractmethod
 from transformers import LlamaTokenizer
 
-from softmax_fns import CustomSoftmaxFn
+from training.softmax_fns import CustomSoftmaxFn
 
 # --- TOKENIZATION ---
 #provides uniform handling for various tokenizers
@@ -51,7 +51,7 @@ class DataLoader:
         data_path: str,
         block_size: int,
         batch_size: int,
-        rank: int, 
+        rank: int,
         world_size: int,
     ):
         self.block_size = block_size
@@ -77,36 +77,55 @@ class DataLoader:
         assert len(self.train_shards) > 0, f"Rank {self.rank} received no training shards."
         assert len(self.val_shards) > 0, f"Rank {self.rank} received no validation shards."
 
-        self.reset(split='train')
-        self.reset(split='val')
+        self.train_current_shard_idx = 0
+        self.train_tokens = self._load_tokens(self.train_shards[self.train_current_shard_idx])
+        self.train_current_position = 0
+        
+        self.val_current_shard_idx = 0
+        self.val_tokens = self._load_tokens(self.val_shards[self.val_current_shard_idx])
+        self.val_current_position = 0
 
     def _load_tokens(self, filename):
         npt = np.load(filename, allow_pickle=True)
         npt = npt.astype(np.int32)
         return torch.tensor(npt, dtype=torch.long)
 
-    def reset(self, split):
-        # state, init at shard zero
-        self.current_shard = 0
-        shards = self.train_shards if split == 'train' else self.val_shards
-        self.tokens = self._load_tokens(shards[self.current_shard])
-        self.current_position = 0
-
     def get_batch(self, split):
         B, T = self.batch_size, self.block_size
-        shards = self.train_shards if split == 'train' else self.val_shards
         
-        buf = self.tokens[self.current_position : self.current_position+B*T+1]
-        x = (buf[:-1]).view(B, T) # inputs
-        y = (buf[1:]).view(B, T) # targets
-        # advance the position in the tensor
-        self.current_position += B * T
-        # if loading the next batch would be out of bounds, advance to next shard
-        if self.current_position + (B * T + 1) > len(self.tokens):
-            self.current_shard = (self.current_shard + 1) % len(shards)
-            self.tokens = self._load_tokens(shards[self.current_shard])
-            self.current_position = 0
-        return x, y   
+        if split == 'train':
+            shards = self.train_shards
+            tokens = self.train_tokens
+            current_pos = self.train_current_position
+        else: #val
+            shards = self.val_shards
+            tokens = self.val_tokens
+            current_pos = self.val_current_position
+            
+        buf = tokens[current_pos : current_pos + B * T + 1]
+        x = (buf[:-1]).view(B, T)
+        y = (buf[1:]).view(B, T)
+        
+        current_pos += B * T
+        
+        # If the next batch is out of bounds, load the next shard for the correct split
+        if current_pos + (B * T + 1) > len(tokens):
+            if split == 'train':
+                self.train_current_shard_idx = (self.train_current_shard_idx + 1) % len(shards)
+                self.train_tokens = self._load_tokens(shards[self.train_current_shard_idx])
+                self.train_current_position = 0
+            else: # 'val'
+                self.val_current_shard_idx = (self.val_current_shard_idx + 1) % len(shards)
+                self.val_tokens = self._load_tokens(shards[self.val_current_shard_idx])
+                self.val_current_position = 0
+        else:
+            # Otherwise, just update the position for the correct split
+            if split == 'train':
+                self.train_current_position = current_pos
+            else: #val
+                self.val_current_position = current_pos
+                
+        return x, y
 
 
 """
@@ -180,16 +199,18 @@ def get_lr(it, max_lr, min_lr, warmup_steps):
     return min_lr + (max_lr - min_lr) * 0.5 * (1 + math.cos(math.pi * (it - warmup_steps) / (10000 - warmup_steps)))
 
 # -- CHECKPOINTING --
-def save_checkpoint(model, optimizer, step, loss, checkpoint_dir='../checkpoints'):
+def save_checkpoint(model, optimizer, step, loss, checkpoint_dir='../checkpoints', save_model_obj: bool = True):
     os.makedirs(checkpoint_dir, exist_ok=True)
-    checkpoint_path = os.path.join(checkpoint_dir, f'checkpoint_step_{step}.pt')
+    checkpoint_path = os.path.join(checkpoint_dir, f'checkpoint_step_{step}_{time.time()}.pt')
     
-    torch.save({
-        'step': step,
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'loss': loss,
-    }, checkpoint_path)
+    if save_model_obj: torch.save(model, checkpoint_path)
+    else:
+        torch.save({
+            'step': step,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': loss,
+        }, checkpoint_path)
     
     return checkpoint_path
 

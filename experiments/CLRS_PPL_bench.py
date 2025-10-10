@@ -1,30 +1,41 @@
 import torch
-from transformers import LlamaTokenizer, AutoModelForCausalLM
+from transformers import LlamaTokenizer, AutoModelForCausalLM #type:ignore
 from clrs._src.clrs_text import huggingface_generators
-
 from datasets import Dataset
+from training import architecture
 import numpy as np
 
-#TODO: replace from checkpoints
-m1 = torch.nn.Module()
-m2 = torch.nn.Module()
+m1 = torch.load('/fs/ess/PAS2836/jacktaylor/test/checkpoints/checkpoint_step_1000_1760122203.693063.pt')
+m2 = torch.load('/fs/ess/PAS2836/jacktaylor/test/checkpoints/checkpoint_step_5000_1760123507.6963952.pt')
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda') #need cuda to load models
 m1.to(device) ; m2.to(device)
 m1.eval() ; m2.eval()
 
 tokenizer = LlamaTokenizer.from_pretrained('meta-llama/Llama-2-7b-hf')
+tokenizer.pad_token = tokenizer.eos_token
 
 def compute_perplexity(model, texts):
     losses = []
     for text in texts:
-        enc = tokenizer(text, return_tensors='pt', truncation=True, max_length=512).to(device)
+        enc = tokenizer(text, return_tensors='pt', truncation=True, max_length=512)
+        input_ids = enc['input_ids'].to(device)
+
         with torch.no_grad():
-            outputs = model(**enc, labels=enc['input_ids'])
-            loss = outputs.loss.item()
-        losses.append(loss)
+            logits = model(input_ids)
+            shift_logits = logits[:, :-1, :].contiguous()
+            shift_labels = input_ids[:, 1:].contiguous()
+
+            loss_fct = torch.nn.CrossEntropyLoss(ignore_index=tokenizer.pad_token_id)
+            loss = loss_fct(
+                shift_logits.view(-1, shift_logits.size(-1)),
+                shift_labels.view(-1)
+            )
+
+        losses.append(loss.item())
 
     return float(np.exp(np.mean(losses)))
+
 
 if __name__ == '__main__':
     #TODO: greater selection
@@ -54,6 +65,6 @@ if __name__ == '__main__':
         print(f'm2 PPL: {m2_ppl:.2f}')
 
     print('summary of results:')
-    for task_name, ppls in results.items(): print(f'{task_name}: m1={ppls['m1']:.2f}, m2={ppls['m2']:.2f}')
+    for task_name, ppls in results.items(): print(f"{task_name}: m1={ppls['m1']:.2f}, m2={ppls['m2']:.2f}")
     
     #TODO: plotting / viz

@@ -12,7 +12,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data.distributed import DistributedSampler
 import torch.distributed as dist
 from typing import Literal
-from utils import TransformerConfig
+from training.utils import TransformerConfig
 
 
 class MLP(nn.Module):
@@ -43,27 +43,24 @@ class MHA(nn.Module):
     def forward(self, x):
         B, T, C = x.size()
         
-        # Calculate query, key, values for all heads in one go
         q, k, v = self.c_attn(x).split(C, dim=2)
         
-        # Reshape to separate heads
-        q = q.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)  # (B, nh, T, hs)
-        k = k.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)  # (B, nh, T, hs)
-        v = v.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)  # (B, nh, T, hs)
+        q = q.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
+        k = k.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
+        v = v.view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
         
-        # Apply RoPE to q and k
+        #apply RoPE
         q, k = self.rope(q, k, T)
         
-        # Causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
+        #causal self attn
         att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
         att = att.masked_fill(torch.tril(torch.ones(T, T, device=x.device)) == 0, float('-inf'))
         att = self.config.softmax_implementation.translate_logits(att, dim=-1)
         
-        # Apply attention to values
-        y = att @ v  # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
-        y = y.transpose(1, 2).contiguous().view(B, T, C)  # re-assemble all head outputs side by side
+        y = att @ v
+        y = y.transpose(1, 2).contiguous().view(B, T, C)
         
-        # Output projection
+        #output proj
         y = self.c_proj(y)
         return y
 
@@ -100,7 +97,7 @@ class RoPE(nn.Module):
         inv_freq = 1.0 / (self.theta ** (torch.arange(0, self.head_dim, 2).float() / self.head_dim))
         self.register_buffer('inv_freq', inv_freq)
         
-        # Cache for embeddings
+        #cache for embeddings
         self.register_buffer("cached_emb", None, persistent=False)
         self.cached_seq_len = 0
 
@@ -110,13 +107,13 @@ class RoPE(nn.Module):
             t = torch.arange(seq_len, device=device, dtype=self.inv_freq.dtype)
             freqs = torch.outer(t, self.inv_freq)
             emb = torch.cat((freqs, freqs), dim=-1)
-            self.cached_emb = emb.unsqueeze(0).unsqueeze(0) # Shape: (1, 1, T, hs)
+            self.cached_emb = emb.unsqueeze(0).unsqueeze(0) #(1, 1, T, hs)
 
     def forward(self, q, k, seq_len):
         B, nh, T, hs = q.shape
         self._update_cache(T, q.device)
         
-        # Slice the cache to the current sequence length
+        #slice the cache to the current sequence length
         cos = self.cached_emb[:, :, :T, :].cos()
         sin = self.cached_emb[:, :, :T, :].sin()
         
@@ -125,9 +122,7 @@ class RoPE(nn.Module):
         
         return q_rot, k_rot
 
-    # _apply_rotary_pos_emb method remains the same
     def _apply_rotary_pos_emb(self, x, cos, sin):
-        # ... (your existing implementation is correct)
         x1 = x[..., :x.size(-1)//2]
         x2 = x[..., x.size(-1)//2:]
         cos_half = cos[..., :cos.size(-1)//2]

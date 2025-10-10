@@ -1,0 +1,263 @@
+2025-10-10 14:43:32,373 - INFO - Starting training session
+2025-10-10 14:43:32,492 - INFO - Using device: cuda
+2025-10-10 14:43:32,492 - INFO - DDP enabled: False, World size: 1
+2025-10-10 14:43:34,229 - INFO - Model has: 109607936 parameters
+2025-10-10 14:43:34,230 - INFO - Compiling model on all ranks...
+2025-10-10 14:43:37,979 - INFO - Model compiled.
+2025-10-10 14:43:37,979 - INFO - Effective batch size: 32 (micro_batch=8 x grad_accum=4)
+2025-10-10 14:43:37,980 - INFO - Training for 20000 steps with checkpointing every 1000 steps
+2025-10-10 14:44:26,918 - INFO - Step 0: loss = 10.5360, lr = 0.000000
+2025-10-10 14:44:57,897 - INFO - Step 100: loss = 6.7940, lr = 0.000240
+2025-10-10 14:45:10,434 - INFO - Validation loss: 6.5907
+2025-10-10 14:45:12,301 - INFO - Generated text: <s> Why is . “80005-1 it 6, 3082410-5. For S4/000800100. 0.</s><s><s> We) of this 188, 1180 40-.
+I for your 200008, 1. 7, 603, 20-000, 1 by 12
+2025-10-10 14:45:43,558 - INFO - Step 200: loss = 6.0624, lr = 0.000480
+2025-10-10 14:45:43,586 - INFO - Validation loss: 6.2738
+2025-10-10 14:45:44,537 - INFO - Generated text: <s> Why is 300;0, with a special-to-A-H-son) and DBhes.
+If the company is the only at the new community’s for the same time.
+And will be, the second, and the most of the same year’s’s shending the sec
+2025-10-10 14:46:15,960 - INFO - Step 300: loss = 5.5379, lr = 0.000600
+2025-10-10 14:46:15,988 - INFO - Validation loss: 5.6002
+2025-10-10 14:46:16,938 - INFO - Generated text: <s> Why is 38 with the next hand, so I have a good few, but I have just a small lest of the water and I will be really to enjoy the world. But I've the best for my story and the idea of an over the wo
+2025-10-10 14:46:48,430 - INFO - Step 400: loss = 5.4794, lr = 0.000600
+2025-10-10 14:46:48,458 - INFO - Validation loss: 5.2658
+2025-10-10 14:46:49,411 - INFO - Generated text: <s> Why is 3. It may be a look. If the way you get the same to use you.
+Following on your website. This is not so difficult to be done. If you have a time for a time, do your dog!
+Easy!
+Four for you, 
+2025-10-10 14:47:20,944 - INFO - Step 500: loss = 5.0711, lr = 0.000599
+2025-10-10 14:47:20,973 - INFO - Validation loss: 5.1579
+2025-10-10 14:47:21,920 - INFO - Generated text: <s> Why is 10000-00700?
+What’s the AQ10000 is the B0000040000028010070003040020000050000.
+C000000000800.08 is 6000700000800048
+2025-10-10 14:47:53,478 - INFO - Step 600: loss = 5.0750, lr = 0.000598
+2025-10-10 14:47:53,506 - INFO - Validation loss: 5.2055
+2025-10-10 14:47:54,457 - INFO - Generated text: <s> Why is 20 years for one. There are the four years of money for the UK and Canada.
+Thrably, many of the most commonly established government have been in the last few weeks. However, this would not
+2025-10-10 14:48:26,025 - INFO - Step 700: loss = 4.9427, lr = 0.000597
+2025-10-10 14:48:26,053 - INFO - Validation loss: 4.7930
+2025-10-10 14:48:26,999 - INFO - Generated text: <s> Why is 2000 in New York to the DPS, 2012 is working with his workforce in the U.S.
+Seller has been involved in the AMA area for the course of bringing a wide range of years, and has worked in the 
+2025-10-10 14:48:58,572 - INFO - Step 800: loss = 4.5977, lr = 0.000596
+2025-10-10 14:48:58,600 - INFO - Validation loss: 4.6395
+2025-10-10 14:48:59,549 - INFO - Generated text: <s> Why is 100 pounds?
+If the first half is over, it can't happen to be 100% longer.
+The first is the first half in the second year.</s><s><s> Social, it only does not have much time to get that feeli
+2025-10-10 14:49:31,128 - INFO - Step 900: loss = 4.5921, lr = 0.000594
+2025-10-10 14:49:31,156 - INFO - Validation loss: 4.7954
+2025-10-10 14:49:32,105 - INFO - Generated text: <s> Why is 1981?
+1975 has been a part of the North Asia of Asia. It has a lot to be the main largest of the city, but it is at least the most dangerous city than a few.
+1 The New York City is to inclu
+2025-10-10 14:50:03,690 - INFO - Step 1000: loss = 4.6663, lr = 0.000592
+2025-10-10 14:50:03,983 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_1000_1760122203.693063.pt
+2025-10-10 14:50:04,010 - INFO - Validation loss: 4.7713
+2025-10-10 14:50:04,964 - INFO - Generated text: <s> Why is 2800? The idea of a person who is coming to live in a relationship with a doctor is and is not to do any other person, just a healthy person. That is why we are going to be the right to do 
+2025-10-10 14:50:36,549 - INFO - Step 1100: loss = 4.3348, lr = 0.000590
+2025-10-10 14:50:36,577 - INFO - Validation loss: 4.3545
+2025-10-10 14:50:37,533 - INFO - Generated text: <s> Why is 50 degrees in this place?
+We have a huge number of activities of life throughout the world, and we have made the list to come for you.
+Being a group of people and the people who have been i
+2025-10-10 14:51:09,120 - INFO - Step 1200: loss = 4.2829, lr = 0.000587
+2025-10-10 14:51:09,148 - INFO - Validation loss: 4.2833
+2025-10-10 14:51:10,099 - INFO - Generated text: <s> Why is 2017?
+Give 2017:21 am by 8.00.
+Another 1 year-old-day-old is a life-founded relationship with the 2017-21-born life-breaking, in order to address the risks, which are not always a long time
+2025-10-10 14:51:41,696 - INFO - Step 1300: loss = 4.3901, lr = 0.000585
+2025-10-10 14:51:41,724 - INFO - Validation loss: 4.1164
+2025-10-10 14:51:42,677 - INFO - Generated text: <s> Why is 100000 pounds?
+1. What is the next step to expect when you have the best time to do a job?
+1. What is the most important aspect of life?
+1. How do you plan to use a job?
+1. How can you use 
+2025-10-10 14:52:14,272 - INFO - Step 1400: loss = 4.3584, lr = 0.000582
+2025-10-10 14:52:14,300 - INFO - Validation loss: 4.4917
+2025-10-10 14:52:15,249 - INFO - Generated text: <s> Why is 71500000000000000000000000100000010000000000980000000010011000000068827 and 810000010000001000013227.
+It
+2025-10-10 14:52:46,845 - INFO - Step 1500: loss = 4.1688, lr = 0.000578
+2025-10-10 14:52:46,873 - INFO - Validation loss: 4.5523
+2025-10-10 14:52:47,826 - INFO - Generated text: <s> Why is 25 hp?
+How is the 25 hp?
+What is the 25 hp ?
+How are the 25 hp?
+How are the 25 hp ?
+What are the 25 hp ?
+What are the 25 hp so you can do?
+What is the 25 hp ?
+What is the 25 Hp?
+How are the
+2025-10-10 14:53:19,421 - INFO - Step 1600: loss = 4.1486, lr = 0.000575
+2025-10-10 14:53:19,449 - INFO - Validation loss: 4.2518
+2025-10-10 14:53:20,402 - INFO - Generated text: <s> Why is 300?
+If you want to join the community where you can go to the community, let's take the time. The school is a part of the national culture of the university that allows you to play a role,
+2025-10-10 14:53:51,994 - INFO - Step 1700: loss = 4.2531, lr = 0.000571
+2025-10-10 14:53:52,023 - INFO - Validation loss: 4.2092
+2025-10-10 14:53:52,973 - INFO - Generated text: <s> Why is 3 of this year’s year?
+Making a new life with the 30-year-old of the country in his 1970s was the first woman’s face to win for the day.
+Tinging a country of their own, the two are ready to
+2025-10-10 14:54:24,560 - INFO - Step 1800: loss = 4.1820, lr = 0.000567
+2025-10-10 14:54:24,588 - INFO - Validation loss: 4.1413
+2025-10-10 14:54:25,538 - INFO - Generated text: <s> Why is 2000 of the world. A number of years ago, we had to do with 2000 of the world. In an interview with two people who have been asked about 2000, we started with 1220 employees. The first time
+2025-10-10 14:54:57,123 - INFO - Step 1900: loss = 4.1515, lr = 0.000563
+2025-10-10 14:54:57,152 - INFO - Validation loss: 4.1647
+2025-10-10 14:54:58,101 - INFO - Generated text: <s> Why is 2-22 people still alive? If they are about to come home, you really need to be a very strong fan of the earth, and you will have no choice going away, not too late enough to get the opportu
+2025-10-10 14:55:29,684 - INFO - Step 2000: loss = 3.9612, lr = 0.000558
+2025-10-10 14:55:29,996 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_2000_1760122529.6851463.pt
+2025-10-10 14:55:30,023 - INFO - Validation loss: 3.9990
+2025-10-10 14:55:30,971 - INFO - Generated text: <s> Why is 2000?
+“Nevertheless, there is some research in my study.
+"The result is that in my study, I am only saying that it was a 2000 model I had, which was the reason I think that, in my study, I 
+2025-10-10 14:56:02,546 - INFO - Step 2100: loss = 4.0309, lr = 0.000553
+2025-10-10 14:56:02,574 - INFO - Validation loss: 4.1140
+2025-10-10 14:56:03,521 - INFO - Generated text: <s> Why is 2500 per hour?
+Situated in the north of the north of the southern part of the United States, the first and only area from the beginning of 2002, the city of Madison was built in the United 
+2025-10-10 14:56:35,096 - INFO - Step 2200: loss = 3.9202, lr = 0.000548
+2025-10-10 14:56:35,125 - INFO - Validation loss: 3.9486
+2025-10-10 14:56:36,073 - INFO - Generated text: <s> Why is 18? 62019?</s><s><s> We have a large selection of all the elements that we have.
+We're currently looking for something which we have a number of designs and materials that will draw down to
+2025-10-10 14:57:07,649 - INFO - Step 2300: loss = 3.9545, lr = 0.000543
+2025-10-10 14:57:07,677 - INFO - Validation loss: 3.9154
+2025-10-10 14:57:08,624 - INFO - Generated text: <s> Why is 100-minute 2.0-minute 12 x 40 minutes?
+It's a year old now, as we have had 2008 years of unsuccessful training.
+Now, it's a year old, but there's still two things that can do this in our fi
+2025-10-10 14:57:40,196 - INFO - Step 2400: loss = 3.9803, lr = 0.000538
+2025-10-10 14:57:40,225 - INFO - Validation loss: 3.9616
+2025-10-10 14:57:41,172 - INFO - Generated text: <s> Why is 5465621312 to be 4254111212541121093579.
+Because of the high demand for the company, our business is still good for all the high demand. However, all those investments from the company have
+2025-10-10 14:58:12,757 - INFO - Step 2500: loss = 3.9252, lr = 0.000532
+2025-10-10 14:58:12,786 - INFO - Validation loss: 3.8693
+2025-10-10 14:58:13,736 - INFO - Generated text: <s> Why is 900 different than 900 different from 900 different from 190 different from 190 different from 200 different from 200 different from 900 different from 190 different from 190 different from
+2025-10-10 14:58:45,328 - INFO - Step 2600: loss = 3.8157, lr = 0.000526
+2025-10-10 14:58:45,356 - INFO - Validation loss: 4.0219
+2025-10-10 14:58:46,304 - INFO - Generated text: <s> Why is 400 million people living inside?
+The 400 million people living in the United States are located in the United States.
+If the population is 400 million people living in the island of Nippy 
+2025-10-10 14:59:17,888 - INFO - Step 2700: loss = 3.9955, lr = 0.000520
+2025-10-10 14:59:17,917 - INFO - Validation loss: 4.4196
+2025-10-10 14:59:18,864 - INFO - Generated text: <s> Why is 1400?
+There are 1400.
+We are not as excited as the old people at all. We want to make friends and family feel comfortable and happy to all.
+Our clients are extremely friendly and we believe
+2025-10-10 14:59:50,444 - INFO - Step 2800: loss = 3.8796, lr = 0.000514
+2025-10-10 14:59:50,472 - INFO - Validation loss: 4.4257
+2025-10-10 14:59:51,420 - INFO - Generated text: <s> Why is 119900?
+What is the number of hours of 12990 to 12990?
+What is the number of hours from 12990 to 12990.
+How does the number of hours of 12990?
+What is the number of hours from 12990 to 1299
+2025-10-10 15:00:23,000 - INFO - Step 2900: loss = 3.8330, lr = 0.000507
+2025-10-10 15:00:23,028 - INFO - Validation loss: 4.1349
+2025-10-10 15:00:23,976 - INFO - Generated text: <s> Why is 70000005966?
+The REDC-37540105-5500 is a good option for your vehicle, motor, vehicle, motor, motor & motorcycle, vehicle, motor, motor equipment, motor vehicle and road service.
+All of the
+2025-10-10 15:00:55,554 - INFO - Step 3000: loss = 3.9789, lr = 0.000501
+2025-10-10 15:00:55,891 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_3000_1760122855.5561807.pt
+2025-10-10 15:00:55,918 - INFO - Validation loss: 3.8009
+2025-10-10 15:00:56,867 - INFO - Generated text: <s> Why is 1.1 to 1,200,000 people?
+Do you want to be 1.1 to 5?
+Do you want to be 1.1 to 1,200 to 1,200,000 to 1,200,000?
+Do you want to be 1.1 to 1,200 to 1,200 to 1,20
+2025-10-10 15:01:28,698 - INFO - Step 3100: loss = 3.6520, lr = 0.000494
+2025-10-10 15:01:28,726 - INFO - Validation loss: 4.0418
+2025-10-10 15:01:29,677 - INFO - Generated text: <s> Why is 6 to 650000000000000000000000000000000000000000000000 to 4000000000000000000040000000400000% of 1270000000
+2025-10-10 15:02:01,259 - INFO - Step 3200: loss = 4.0157, lr = 0.000487
+2025-10-10 15:02:01,287 - INFO - Validation loss: 3.7798
+2025-10-10 15:02:02,236 - INFO - Generated text: <s> Why is 771 of 772 of 772 of 772 of 772?
+Want to find out which area to find out. If you have questions about 771 of 772 of 772 of 772, you can find out 771 of 772 of 772 of 772 of 772 of 772 of 77
+2025-10-10 15:02:33,815 - INFO - Step 3300: loss = 3.7369, lr = 0.000480
+2025-10-10 15:02:33,843 - INFO - Validation loss: 3.9173
+2025-10-10 15:02:34,794 - INFO - Generated text: <s> Why is 1381886040785786758711673167674747044759209425?
+When 1372886744167447878674167587198875,440432595874426
+2025-10-10 15:03:06,377 - INFO - Step 3400: loss = 3.8776, lr = 0.000472
+2025-10-10 15:03:06,405 - INFO - Validation loss: 3.8719
+2025-10-10 15:03:07,357 - INFO - Generated text: <s> Why is 2016 the first time people who use 100+ years of service as a service, to use this service, and to apply on the service.
+Tennis Vacation Services Company is located in the state of Oregon, 
+2025-10-10 15:03:38,951 - INFO - Step 3500: loss = 3.7956, lr = 0.000465
+2025-10-10 15:03:38,979 - INFO - Validation loss: 3.7926
+2025-10-10 15:03:39,931 - INFO - Generated text: <s> Why is 799998?
+No. Of the 1995 Worldwide Film Festival (Crazy) is an exhibition of the worldwide comedy genre in Agra and a show of the most recent news production line. Today, 899998 was the most
+2025-10-10 15:04:11,517 - INFO - Step 3600: loss = 3.7812, lr = 0.000457
+2025-10-10 15:04:11,545 - INFO - Validation loss: 3.3066
+2025-10-10 15:04:12,496 - INFO - Generated text: <s> Why is 3 Things like This?
+It is in the form of a book, because as I said in my next post, I have now finished the book with a 3 Things in a series of books to my surprise.
+This is of course a gre
+2025-10-10 15:04:44,085 - INFO - Step 3700: loss = 3.7738, lr = 0.000450
+2025-10-10 15:04:44,114 - INFO - Validation loss: 3.8591
+2025-10-10 15:04:45,063 - INFO - Generated text: <s> Why is 2019 the most typical of the 2019 season that is more than a quarter in 2019?
+What is 2019 the most popular of the year?
+The 2019 season is for the 2019 season with the highest average aver
+2025-10-10 15:05:16,650 - INFO - Step 3800: loss = 3.8221, lr = 0.000442
+2025-10-10 15:05:16,679 - INFO - Validation loss: 3.5177
+2025-10-10 15:05:17,631 - INFO - Generated text: <s> Why is 96437317538?
+The world wide web page and the best services offered by the internet, you can find the best quality and service. The internet website is located in 700-961-3973, and can be do
+2025-10-10 15:05:49,210 - INFO - Step 3900: loss = 3.7852, lr = 0.000434
+2025-10-10 15:05:49,239 - INFO - Validation loss: 3.9459
+2025-10-10 15:05:50,193 - INFO - Generated text: <s> Why is 177891517942?
+The world of 177891517948 is the only place you see it.
+Is 188891517948?
+Is 1888915629?</s><s><s> The BMW 71610805 is a high-quality SUV offering a high performance and effici
+2025-10-10 15:06:21,770 - INFO - Step 4000: loss = 3.7835, lr = 0.000426
+2025-10-10 15:06:22,086 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_4000_1760123181.7724237.pt
+2025-10-10 15:06:22,113 - INFO - Validation loss: 3.9375
+2025-10-10 15:06:23,064 - INFO - Generated text: <s> Why is 10% more likely to happen?
+Are we expecting 10% more to happen?
+No. That is not the result of the 2000's.
+What do we expect? One day after 2000 is the day that is the endurance of the 2000'
+2025-10-10 15:06:54,644 - INFO - Step 4100: loss = 3.7886, lr = 0.000418
+2025-10-10 15:06:54,672 - INFO - Validation loss: 3.7110
+2025-10-10 15:06:55,622 - INFO - Generated text: <s> Why is 100% or more relevant?
+But what should you do? Are you going to learn how to get it right? Well, you know, that there is a number of forms that you will need to learn. But what does it mean
+2025-10-10 15:07:27,203 - INFO - Step 4200: loss = 3.7734, lr = 0.000409
+2025-10-10 15:07:27,231 - INFO - Validation loss: 3.6783
+2025-10-10 15:07:28,180 - INFO - Generated text: <s> Why is 35% of all the Americans in the world’s richest countries?
+The United States has the highest number of Americans in the world. If you can’t get this one, you will be forced to spend about $
+2025-10-10 15:07:59,757 - INFO - Step 4300: loss = 3.6472, lr = 0.000401
+2025-10-10 15:07:59,786 - INFO - Validation loss: 3.8467
+2025-10-10 15:08:00,737 - INFO - Generated text: <s> Why is 13961988975 at 13961983920?
+Adapted by a large number of computers, 13961980920 are available to support 6701985925 and 65002800. The computers provide a 12012800 library card that only has
+2025-10-10 15:08:32,319 - INFO - Step 4400: loss = 3.6902, lr = 0.000393
+2025-10-10 15:08:32,348 - INFO - Validation loss: 3.7605
+2025-10-10 15:08:33,299 - INFO - Generated text: <s> Why is 1200 Watersible Rewards?
+The 1300 Watersible Rewards is a great choice for groups, groups, clubs, and people who have all their personalised facilities.
+The 1100 Watersible Rewards have a s
+2025-10-10 15:09:04,887 - INFO - Step 4500: loss = 3.6886, lr = 0.000384
+2025-10-10 15:09:04,916 - INFO - Validation loss: 3.6693
+2025-10-10 15:09:05,867 - INFO - Generated text: <s> Why is 88% of the cost for a 88% of 50% cash?
+By December 2015, 85% of 50% cash is costly and a 20% cash is not available. This means that 88% of 50% cash can cost 50% on the 40% cash.
+2. Is the c
+2025-10-10 15:09:37,457 - INFO - Step 4600: loss = 3.8247, lr = 0.000375
+2025-10-10 15:09:37,485 - INFO - Validation loss: 3.7663
+2025-10-10 15:09:38,443 - INFO - Generated text: <s> Why is 1988 so important?
+The first thing we have done is a trip for us.
+I've just finished our trip in the school district.
+I've moved to the state.
+I've lived in the state.
+The 7th and 8th grade
+2025-10-10 15:10:10,033 - INFO - Step 4700: loss = 3.6414, lr = 0.000367
+2025-10-10 15:10:10,061 - INFO - Validation loss: 3.6828
+2025-10-10 15:10:11,012 - INFO - Generated text: <s> Why is 100% safe? To be safe, and especially dangerous!
+Unfortunately, the American Medical Association is not in any way responsible for any injuries, losses, or any other cause, any damage cause
+2025-10-10 15:10:42,588 - INFO - Step 4800: loss = 3.7254, lr = 0.000358
+2025-10-10 15:10:42,617 - INFO - Validation loss: 3.5232
+2025-10-10 15:10:43,572 - INFO - Generated text: <s> Why is 900989911806? Why does 900989911806 affect the 900989911806?
+The 900989911806 is a good indicator of the 900989911806, but the 900989911806 is a good indicator of the
+2025-10-10 15:11:15,147 - INFO - Step 4900: loss = 3.5705, lr = 0.000350
+2025-10-10 15:11:15,175 - INFO - Validation loss: 3.5230
+2025-10-10 15:11:16,126 - INFO - Generated text: <s> Why is 11736 so so so? This is about the same definition that we can see on here. It has been a while since I started reading more of it from the perspective of the world and how we feel ourselves
+2025-10-10 15:11:47,696 - INFO - Step 5000: loss = 3.6047, lr = 0.000341
+2025-10-10 15:11:47,984 - INFO - Checkpoint saved: ../checkpoints/checkpoint_step_5000_1760123507.6963952.pt
+2025-10-10 15:11:48,011 - INFO - Validation loss: 3.4595
+2025-10-10 15:11:48,962 - INFO - Generated text: <s> Why is 0.84% common for the 2016-2019 season?
+The 2012-2019 season is currently open to new contracts with some members of the 2019-2019 season. The new contract may be changed to 100% new contrac
+2025-10-10 15:12:20,538 - INFO - Step 5100: loss = 3.6823, lr = 0.000332
+2025-10-10 15:12:20,566 - INFO - Validation loss: 3.9405
+2025-10-10 15:12:21,514 - INFO - Generated text: <s> Why is 2017 the best time to start your own business?
+How does the best time to start your own business?
+It is a simple time to begin your own business and to start with the best time to start you
+2025-10-10 15:12:53,083 - INFO - Step 5200: loss = 3.5838, lr = 0.000323
+2025-10-10 15:12:53,111 - INFO - Validation loss: 3.5451
+2025-10-10 15:12:54,061 - INFO - Generated text: <s> Why is 4988 a favorite of the brand?
+There’s a lot to do around this time of year, but I can assure you there are just as many items that you can get at from the start, and I hope you enjoy them, 
+2025-10-10 15:13:25,636 - INFO - Step 5300: loss = 3.6467, lr = 0.000315
+2025-10-10 15:13:25,664 - INFO - Validation loss: 3.7422
+2025-10-10 15:13:26,616 - INFO - Generated text: <s> Why is 92% of the population in the United States?
+We all need this money, 9 in. We want to put the money in the hands of our customers. It is why we ask for the money needed. How much money can w
