@@ -14,7 +14,7 @@ import torch.distributed as dist
 from typing import Literal
 import numpy as np
 from abc import ABC, abstractmethod
-from transformers import LlamaTokenizer
+from transformers import LlamaTokenizer #type:ignore
 
 from training.softmax_fns import CustomSoftmaxFn
 

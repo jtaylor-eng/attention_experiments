@@ -6,14 +6,14 @@
  - checkpoints: Model checkpoints, automatically written every k steps, and once training completes. (gitignored)
  - data: Code to download dataset (c4_en with llama2 tokenizer). Can easily switch dataset and tokenizer to any HF dataset / tokenizer.
  - experiments: Code to compare quality of pretrained models. Namely perplexity comparison using CLRS benchmark between 2 checkpoints.
- - training: Pretraining code: LM architecture, train loop, dataloaders, lr scheduling, etc.
+ - training: Pretraining code: LM architecture, train loop, dataloaders, lr scheduling, etc. 
 
-# TODO:
+<br><br><br><br><br>
+# TODO for from scratch pretraining -- probably just vaulting this and tuning gemma2B for now:
  - [x] seperate files / better repo structure (train loop, architecture, utils,  experiments, logging)
  - [x] fix logging pathing (sbatch)
  - [x] support train & val splits with c4 dataloader
  - [x] support different softmax implementations / alternatives
  - [ ] translate train.py globals to use command line arguments
- - [ ] fix DDP
- - [ ] consider fp precision for fast train / inference
+ - [ ] fix DDP (train_8gpu.sbatch)
  - [ ] KV caching inside LM.generate
