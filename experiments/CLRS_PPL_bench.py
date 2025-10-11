@@ -1,3 +1,5 @@
+#Compare two pretrained checkpoints perplexity in inferencing over CLRS examples
+
 import torch
 from transformers import LlamaTokenizer, AutoModelForCausalLM #type:ignore
 from clrs._src.clrs_text import huggingface_generators

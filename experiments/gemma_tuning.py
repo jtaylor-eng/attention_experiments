@@ -1,12 +1,148 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
+import inspect
+import torch
+from tqdm import tqdm
+import matplotlib.pyplot as plt
+import numpy as np
 
-tokenizer = AutoTokenizer.from_pretrained("google/gemma-2b")
-model = AutoModelForCausalLM.from_pretrained("google/gemma-2b", device_map="auto")
+from transformers import AutoTokenizer, AutoModelForCausalLM, Trainer, TrainingArguments
+from datasets import Dataset
+from typing import Tuple
 
-# input_text = "Michael Jordan plays for the "
-# input_ids = tokenizer(input_text, return_tensors="pt").to("cuda")
-# outputs = model.generate(**input_ids)
-# print(tokenizer.decode(outputs[0]))
+import clrs
+from clrs._src import algorithms
+from clrs._src.clrs_text import huggingface_generators
 
-print(type(model))
-print(model)
+import absl.logging ; absl.logging.set_verbosity(absl.logging.ERROR) #kwargs implicitely passing 'use padding' -- gives phat error msg
+
+def test_gen(model, tokenizer):
+    input_text = 'Michael Jordan plays for the '
+    input_ids = tokenizer(input_text, return_tensors='pt').to('cuda')
+    outputs = model.generate(**input_ids)
+    print(tokenizer.decode(outputs[0]))
+
+
+def get_train_val_splits(
+    algorithm: str,
+    train_range: Tuple[int,int] = (1,16),
+    val_range: Tuple[int,int] = (1,32),
+    train_samples: int = 50,
+    val_samples: int = 5
+):
+    assert train_range[0] >= 1 and train_range[1] <= 64, 'Train range must be within (1, 64)'
+    assert val_range[0] >= 1 and val_range[1] <= 128, 'Validation range must be within (1, 128)'
+    assert val_range[1] > train_range[1], 'Validation upper bound should be larger than training upper bound to test OOD sequences'
+    
+    train_lens = list(range(train_range[0], train_range[1]))
+    val_lens = list(range(val_range[0], val_range[1]))
+
+    it = [
+        ('train', train_lens),
+        ('val', val_lens)
+    ]
+
+    splits = {}
+
+    for split, lens in it:
+        samples = train_samples if split == 'train' else val_samples
+        splits[split] = Dataset.from_generator(
+            huggingface_generators.clrs_generator,
+            gen_kwargs={
+                'algos_and_lengths': {algorithm: lens},
+                'num_samples': samples,
+                'use_hints': True,
+                'seed': 1337
+            }
+        )
+    # print(splits, splits['train'][0], splits['val']) ; exit()
+    
+    return splits
+
+
+def preprocess_dataset(dataset, tokenizer):
+    def format_example(example):
+        text = f'{example['text']}\n{example['question']}\nAnswer: {example['answer']}'
+        return {'text': text}
+    
+    dataset = dataset.map(format_example)
+    
+    def tokenize(batch):
+        return tokenizer(
+            batch['text'],
+            padding='max_length',
+            truncation=True,
+            max_length=512,
+        )
+    
+    return dataset.map(tokenize, batched=True)
+
+
+def fine_tune_model(model, tokenizer, dataset, output_dir='./checkpoints', epochs=1):
+    tokenized = preprocess_dataset(dataset, tokenizer)
+    tokenized.set_format(type='torch', columns=['input_ids', 'attention_mask'])
+    
+    args = TrainingArguments(
+        output_dir=output_dir,
+        per_device_train_batch_size=1,
+        num_train_epochs=epochs,
+        logging_steps=5,
+        save_strategy='no',
+        report_to='none',
+    )
+    
+    trainer = Trainer(
+        model=model,
+        args=args,
+        train_dataset=tokenized,
+        tokenizer=tokenizer,
+    )
+    
+    trainer.train()
+    return model
+
+
+def evaluate_perplexity(model, tokenizer, dataset):
+    model.eval()
+    losses = []
+    for example in tqdm(dataset):
+        inputs = tokenizer(example['text'], return_tensors='pt', truncation=True, max_length=512).to(model.device)
+        with torch.no_grad():
+            loss = model(**inputs, labels=inputs['input_ids']).loss
+        losses.append(loss.item())
+    return np.exp(np.mean(losses))
+
+
+def plot_validation_OOD_performance(validation_datasets, model):
+    lens = []
+    ppls = []
+    
+    for val_set in val_sets:
+        avg_len = np.mean([ex['length'] for ex in val_set])
+        ppl = evaluate_perplexity(model, tokenizer, val_set)
+        lens.append(avg_len)
+        ppls.append(ppl)
+    
+    plt.plot(lens, ppls, marker='o') ; plt.grid(True) ; plt.show()
+
+if __name__ == '__main__':
+    tokenizer = AutoTokenizer.from_pretrained('google/gemma-2b')
+    model = AutoModelForCausalLM.from_pretrained('google/gemma-2b', device_map='auto')
+
+    # test_gen(model, tokenizer)
+
+    print(type(model))
+    print(model)
+
+    #probably a convenience method for this, but couldn't find
+    #list of strings for generating the 30 algorithm datasets
+    algos = [s for s, o in inspect.getmembers(algorithms) if inspect.isfunction(o)]
+
+    val_sets = []
+    for algo in algos:
+        split = get_train_val_splits(algo)
+        
+        tune_set = split['train']
+        val_sets.append(split['val']) #store for future comparison
+
+        model_tuned = fine_tune_model(model, tokenizer, tune_set)
+
+    plot_validation_OOD_performance(val_sets, model_tuned) 
