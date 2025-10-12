@@ -21,15 +21,20 @@ import absl.logging ; absl.logging.set_verbosity(absl.logging.ERROR) #dataset kw
 # 1. Matching the original function's signature to accept all arguments.
 # 2. Using a try-except block to handle both scalar and iterable data.
 import clrs._src.clrs_text.clrs_utils as clrs_utils
-def monkey(x, **kwargs):
+def monkey_node(x, **kwargs):
     try: content = clrs_utils.SEQUENCE_SEPARATOR.join([str(a) for a in x])
     except TypeError: content = str(x)
 
     use_brackets = kwargs.get('brackets', True)
     return clrs_utils._bracket(content) if use_brackets else content
-clrs_utils._convert_node_features_to_str = monkey
-#
+def monkey_edge(x, **kwargs):
+    try: content = clrs_utils.DEFAULT_SEPARATOR.join([clrs_utils.row_to_str(r) for r in x])
+    except TypeError:content = str(x)
 
+    use_brackets = kwargs.get('brackets', True)
+    return clrs_utils._bracket(content) if use_brackets else content
+clrs_utils._convert_node_features_to_str = monkey_node
+clrs_utils._convert_edge_features_to_str = monkey_edge
 
 def test_gen(model, tokenizer):
     """Ensure functionality to generate from model w/ tokenizer."""
@@ -41,10 +46,10 @@ def test_gen(model, tokenizer):
 
 def get_train_val_splits(
     algorithm: str,
-    train_range: Tuple[int,int] = (1,16),
-    val_range: Tuple[int,int] = (1,32),
-    train_samples: int = 500,
-    val_samples: int = 50
+    train_range: Tuple[int,int] = (8,16),
+    val_range: Tuple[int,int] = (8,32),
+    train_samples: int = 50,
+    val_samples: int = 10
 ):
     """
     given CLRS algorithm (dfs, bfs, dijkstra, ...) generate train_samples trajectories and store in train split,
@@ -62,8 +67,8 @@ def get_train_val_splits(
             num_rows: val_samples
         })}
     """
-    assert train_range[0] >= 1 and train_range[1] <= 64, 'Train range must be within (1, 64)'
-    assert val_range[0] >= 1 and val_range[1] <= 128, 'Validation range must be within (1, 128)'
+    assert train_range[0] >= 4 and train_range[1] <= 64, 'Train range must be within (4, 64)'
+    assert val_range[0] >= 4 and val_range[1] <= 128, 'Validation range must be within (4, 128)'
     assert val_range[1] > train_range[1], 'Validation upper bound should be larger than training upper bound to test OOD sequences'
     
     train_lens = list(range(train_range[0], train_range[1]))
@@ -88,11 +93,12 @@ def get_train_val_splits(
             }
         )
 
-    # print(splits, splits['train'][0], splits['val']) ; exit() #look at data gen
+    print(splits, splits['train'][0], splits['val']) #look at data gen
     return splits
 
 
 def preprocess_dataset(dataset, tokenizer):
+    """Format & Tokenize CLRS trajectories to use in tuning."""
     def format_example(example):
         text = f"{example['text']}\n{example['question']}\nAnswer: {example['answer']}"
         return {'text': text}
@@ -100,19 +106,22 @@ def preprocess_dataset(dataset, tokenizer):
     dataset = dataset.map(format_example)
     
     def tokenize(batch):
-        return tokenizer(
+        tokenized = tokenizer(
             batch['text'],
             padding='max_length',
             truncation=True,
             max_length=512,
         )
+        tokenized['labels'] = tokenized['input_ids'].copy()
+        return tokenized
     
     return dataset.map(tokenize, batched=True)
 
 
 def fine_tune_model(model, tokenizer, dataset, output_dir='./checkpoints', epochs=1):
+    """Use HF Trainer to tune model given dataset."""
     tokenized = preprocess_dataset(dataset, tokenizer)
-    tokenized.set_format(type='torch', columns=['input_ids', 'attention_mask'])
+    tokenized.set_format(type='torch', columns=['input_ids', 'attention_mask', 'labels'])
     
     args = TrainingArguments(
         output_dir=output_dir,
@@ -135,6 +144,7 @@ def fine_tune_model(model, tokenizer, dataset, output_dir='./checkpoints', epoch
 
 
 def evaluate_perplexity(model, tokenizer, dataset):
+    """Compute PPL over given model dataset."""
     model.eval()
     losses = []
     for example in tqdm(dataset):
@@ -145,6 +155,7 @@ def evaluate_perplexity(model, tokenizer, dataset):
 
 
 def plot_validation_OOD_performance(validation_datasets, model):
+    """For each algo (element in validation_datasets) compute & plot PPL."""
     lens, ppls = [], []
     
     for val_set in val_sets:
