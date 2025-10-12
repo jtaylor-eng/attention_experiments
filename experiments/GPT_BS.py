@@ -21,7 +21,7 @@ def get_train_val_splits(
     algorithm: str,
     train_range: Tuple[int,int] = (4, 16),
     val_range: Tuple[int,int] = (4, 32),
-    train_samples: int = 50,
+    train_samples: int = 500,
     val_samples: int = 10
 ):
     """
@@ -78,7 +78,7 @@ def preprocess_dataset(dataset, tokenizer):
             batch['formatted_text'], # Use the formatted text here
             padding='max_length',
             truncation=True,
-            max_length=512,
+            max_length=2048,
         )
         tokenized['labels'] = tokenized['input_ids'].copy()
         return tokenized
@@ -87,7 +87,7 @@ def preprocess_dataset(dataset, tokenizer):
     return dataset.map(tokenize, batched=True, remove_columns=['formatted_text'])
 
 
-def fine_tune_model(model, tokenizer, dataset, output_dir='./checkpoints', epochs=3):
+def fine_tune_model(model, tokenizer, dataset, output_dir='./checkpoints', epochs=1):
     """Use HF Trainer to tune model given dataset."""
     tokenized = preprocess_dataset(dataset, tokenizer)
     tokenized.set_format(type='torch', columns=['input_ids', 'attention_mask', 'labels'])
@@ -121,6 +121,9 @@ def evaluate_accuracy(model, tokenizer, dataset):
     correct = 0
     total = 0
 
+    eval_print_max = 3
+    curr_eval_print = 0
+
     for example in tqdm(dataset, desc="Evaluating Accuracy", leave=False):
         prompt = f"{example['text']}\n{example['question']}\nAnswer: "
         inputs = tokenizer(prompt, return_tensors='pt').to(model.device)
@@ -130,7 +133,7 @@ def evaluate_accuracy(model, tokenizer, dataset):
                 **inputs,
                 max_new_tokens=512,
                 pad_token_id=tokenizer.eos_token_id,
-                # do_sample=False
+                do_sample=False
             )
 
         decoded_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
@@ -142,8 +145,12 @@ def evaluate_accuracy(model, tokenizer, dataset):
         norm_prediction = re.sub(r'[^0-9\s]', '', prediction).strip()
         norm_ground_truth = re.sub(r'[^0-9\s]', '', ground_truth).strip()
         
-        if norm_prediction == norm_ground_truth:
-            correct += 1
+        if curr_eval_print <= eval_print_max:
+            print('  prediction: ', norm_prediction)
+            print('ground truth: ', norm_ground_truth, end='\n\n')
+            curr_eval_print += 1
+
+        if norm_prediction == norm_ground_truth: correct += 1
         total += 1
 
     return (correct / total) if total > 0 else 0
