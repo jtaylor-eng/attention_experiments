@@ -82,10 +82,10 @@ def test_gen(model, tokenizer):
 
 def get_train_val_splits(
     algorithm: str,
-    train_range: Tuple[int,int] = (4, 8),
-    val_range: Tuple[int,int] = (4, 16),
+    train_range: Tuple[int,int] = (4, 9),
+    val_range: Tuple[int,int] = (8, 17),
     train_samples: int = 50,
-    val_samples: int = 20
+    val_samples: int = 16
 ):
     """
     given CLRS algorithm (dfs, bfs, dijkstra, ...) generate train_samples trajectories and store in train split,
@@ -174,7 +174,7 @@ def fine_tune_model(model, tokenizer, dataset, output_dir='./checkpoints', epoch
     return model
 
 
-def evaluate_accuracy(model, tokenizer, dataset, batch_size=64):
+def evaluate_accuracy(model, tokenizer, dataset, batch_size=128):
     """Computes prediction accuracy over a given dataset using batching for speed."""
     model.eval()
     correct = 0
@@ -224,7 +224,7 @@ def run_evaluation(algorithms, validation_datasets, model, tokenizer):
         unique_lengths = sorted(list(set(ex['length'] for ex in val_set)))
         accuracies = []
         for length in unique_lengths:
-            subset = val_set.filter(lambda example: example['length'] == length, num_proc=24)
+            subset = val_set.filter(lambda example: example['length'] == length, num_proc=8)
             if len(subset) > 0:
                 acc = evaluate_accuracy(model, tokenizer, subset)
                 accuracies.append(acc)
