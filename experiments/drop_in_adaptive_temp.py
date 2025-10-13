@@ -60,6 +60,7 @@ def swap_gemma_attention_layers(model):
         else: swap_gemma_attention_layers(module) #recurse
     return model
 
+    
 def test_gen(model, tokenizer):
     """Ensure functionality to generate from model w/ tokenizer."""
     input_text = 'Michael Jordan plays for the '

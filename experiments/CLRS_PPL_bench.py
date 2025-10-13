@@ -41,7 +41,7 @@ def compute_perplexity(model, texts):
 
 if __name__ == '__main__':
     #TODO: greater selection
-    tasks = ['bfs', 'dfs', 'insertion_sort', 'binary_search', 'quicksort']
+    tasks = ['bfs', 'dfs', 'insertion_sort', 'binary_search', 'quicksort', 'dijkstra']
     results = {}
 
     for task_name in tasks:
