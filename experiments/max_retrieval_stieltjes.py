@@ -11,7 +11,9 @@ import torch.optim as optim
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import random
+from typing import Literal
 
+from softmax_fns import TraditionalSoftmax, StieltjesTransform, AdaptiveSoftmax, TopKSoftmax
 
 class MaxDataLoader:
     def __init__(self, dataset, batch_size, shuffle=True):
@@ -35,8 +37,18 @@ class MaxDataLoader:
 
 
 class SelfAttnLayer(nn.Module):
-    def __init__(self, d_emb):
+    def __init__(
+        self,
+        d_emb,
+        softmax: Literal['traditional', 'adaptive', 'stieltjes', 'top_k'] = 'traditional',
+    ):
         super().__init__()
+        if softmax == 'traditional': self._translate_logits = TraditionalSoftmax()
+        elif softmax == 'stieltjes': self._translate_logits = StieltjesTransform()
+        elif softmax == 'adaptive': self._translate_logits = AdaptiveSoftmax()
+        elif softmax == 'top_k': self._translate_logits = TopKSoftmax()
+        else: raise ValueError('Error: Invalid softmax option.')
+
         self.c_attn = nn.Linear(d_emb, 3 * d_emb)
         self.c_proj = nn.Linear(d_emb, d_emb)
         self.fc = nn.Linear(d_emb, 1)
@@ -54,7 +66,8 @@ class SelfAttnLayer(nn.Module):
         # mask = torch.triu(torch.ones(T, T, device=x.device), diagonal=1).bool()
         # attn_scores = attn_scores.masked_fill(mask, float('-inf'))
 
-        attn_weights = torch.softmax(attn_scores, dim=-1)  #(B, T, T)
+        attn_weights = self._translate_logits.translate_logits(attn_scores, dim=-1)  #(B, T, T)
+
         y = torch.matmul(attn_weights, v)  #(B, T, C)
 
         y = self.c_proj(y)
@@ -75,7 +88,7 @@ def make_dataset(len_dataset: int, max_len_seq: int):
 
     return data
 
-def plot_max_retrieval_attention(model, embedding, device, start_len=16, num_doubles=7, batch_size=32):
+def plot_max_retrieval_attention(model, embedding, device, name, start_len=16, num_doubles=7, batch_size=32):
     """
     plots attention maps like Figure 2 from the paper.
     The columns are sorted by the input item's actual value in ascending order.
@@ -102,69 +115,70 @@ def plot_max_retrieval_attention(model, embedding, device, start_len=16, num_dou
         ax.set_title(f"{current_len}", fontsize=8) ; ax.set_xticks([])
         current_len *= 2
 
-    plt.savefig('mrs.png')
+    plt.savefig(f'{name}.png')
 
 if __name__ == '__main__':
-    #hyperparameters
-    d_emb = 16
-    epochs = 15
-    batch_size = 32
-    max_len_seq = 16
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    for logits_translation in ['traditional', 'adaptive']:
+        #hyperparameters
+        d_emb = 16
+        epochs = 10
+        batch_size = 1000
+        max_len_seq = 16
+        device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-    #dataset
-    train = make_dataset(500, max_len_seq)
-    dev = make_dataset(50, max_len_seq)
-    dataloader = MaxDataLoader(train, batch_size)
-    val_loader = MaxDataLoader(dev, batch_size)
-
-    #model
-    embedding = nn.Embedding(30, d_emb).to(device)
-    model = SelfAttnLayer(d_emb).to(device)
-    optimizer = optim.AdamW(list(model.parameters()) + list(embedding.parameters()), lr=1e-3)
-    loss_fn = nn.MSELoss()
-
-    for epoch in range(epochs):
+        #dataset
+        train = make_dataset(1000, max_len_seq)
+        dev = make_dataset(50, max_len_seq)
         dataloader = MaxDataLoader(train, batch_size)
-        total_loss = 0
-        for xs, ys in  dataloader:
-            ys = ys.to(device)
-            optimizer.zero_grad()
-            batch_losses = []
+        val_loader = MaxDataLoader(dev, batch_size)
 
-            for x, y in zip(xs, ys):
-                x=x.to(device)
+        #model
+        embedding = nn.Embedding(30, d_emb).to(device)
+        model = SelfAttnLayer(d_emb, softmax=logits_translation).to(device)
+        optimizer = optim.AdamW(list(model.parameters()) + list(embedding.parameters()), lr=1e-3)
+        loss_fn = nn.MSELoss()
 
-                emb = embedding(x).unsqueeze(0)  #(1, T, d_emb)
-                out = model(emb)  #(1, T, 1)
-                pred = out[0, -1, 0]  #last token predicts max
-                loss = loss_fn(pred, y.float())
-                batch_losses.append(loss)
+        for epoch in range(epochs):
+            dataloader = MaxDataLoader(train, batch_size)
+            total_loss = 0
+            for xs, ys in dataloader:
+                ys = ys.to(device)
+                optimizer.zero_grad()
+                batch_losses = []
 
-            batch_loss = torch.stack(batch_losses).mean()
-            batch_loss.backward()
-            optimizer.step()
-            total_loss += batch_loss.item()
+                for x, y in zip(xs, ys):
+                    x=x.to(device)
 
-            #val
-            #model.eval()
-            #val_loss = 0
-            # with torch.no_grad():
-            #     for xs, ys in val_loader:
-            #         ys = ys.to(device)
-            #         batch_losses = []
+                    emb = embedding(x).unsqueeze(0)  #(1, T, d_emb)
+                    out = model(emb)  #(1, T, 1)
+                    pred = out[0, -1, 0]  #last token predicts max
+                    loss = loss_fn(pred, y.float())
+                    batch_losses.append(loss)
 
-            #         for x, y in zip(xs, ys):
-            #             x = x.to(device)
+                batch_loss = torch.stack(batch_losses).mean()
+                batch_loss.backward()
+                optimizer.step()
+                total_loss += batch_loss.item()
 
-            #             emb = embedding(x).unsqueeze(0)
-            #             out = model(emb)
-            #             pred = out[0, -1, 0]
-            #             loss = loss_fn(pred, y.float())
-            #             batch_losses.append(loss)
+                #val
+                #model.eval()
+                #val_loss = 0
+                # with torch.no_grad():
+                #     for xs, ys in val_loader:
+                #         ys = ys.to(device)
+                #         batch_losses = []
 
-            #         batch_loss = torch.stack(batch_losses).mean()
-            #         val_loss += batch_loss.item()
-        print(f'Epoch {epoch+1} | Train Loss: {total_loss:.4f}')# | Val Loss: {val_loss:.4f}')
+                #         for x, y in zip(xs, ys):
+                #             x = x.to(device)
 
-    plot_max_retrieval_attention(model, embedding, device)
+                #             emb = embedding(x).unsqueeze(0)
+                #             out = model(emb)
+                #             pred = out[0, -1, 0]
+                #             loss = loss_fn(pred, y.float())
+                #             batch_losses.append(loss)
+
+                #         batch_loss = torch.stack(batch_losses).mean()
+                #         val_loss += batch_loss.item()
+            print(f'Epoch {epoch+1} | Train Loss: {total_loss:.4f}')# | Val Loss: {val_loss:.4f}')
+
+        plot_max_retrieval_attention(model, embedding, device, logits_translation)

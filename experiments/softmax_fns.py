@@ -26,9 +26,6 @@ class TraditionalSoftmax(CustomSoftmaxFn):
     def translate_logits(self, logits, dim): return F.softmax(logits, dim=dim)
 
 class StieltjesTransform(CustomSoftmaxFn):
-    DEFAULT_Q = 1
-    DEFAULT_ITER = 32
-    DEFAULT_EPS = 1e-9
     def translate_logits(self, logits, dim):
         #TODO:
         ...
