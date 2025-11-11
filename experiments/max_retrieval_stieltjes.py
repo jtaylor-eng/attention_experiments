@@ -5,7 +5,6 @@
 
 """
 TODO:
- - fix sorting in plots
  - validation (both in and out of distribution)
  - plot training time (title) with various approaches
  - plot train, val learning curves
@@ -74,7 +73,7 @@ class SelfAttnLayer(nn.Module):
 
         attn_scores = torch.matmul(q, k.transpose(-2, -1))  #(B, T, T)
 
-        if self._translate_logits == 'softmax': #scale for traditional softmax
+        if self._translate_logits == 'traditional': #scale for traditional softmax
             attn_scores *= q.size(-1) ** -0.5
 
         #causal mask removed for this task, allowing global attention.
@@ -149,18 +148,39 @@ def plot_max_retrieval_attention(model, embedding, device, name, start_len=32, n
 if __name__ == '__main__':
     results_folder = './results/'
 
-    #hyperparameters
-    d_emb = 16
-    epochs = 50
+    #hyperparams
+    d_emb = 32
+    epochs = 20
     batch_size = 1028
     max_len_seq = 32
+    ood_len_seq = 128
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-    #dataset
+    #train data
     train_data = make_dataset(102800, max_len_seq)
     train_dataset = MaxDataset(train_data)
     dataloader = DataLoader(
         train_dataset, 
+        batch_size=batch_size, 
+        shuffle=True, 
+        collate_fn=collate_max_data
+    )
+
+    #validation on in distribution data
+    val_data_ID = make_dataset(1028, max_len_seq)
+    val_ID_dataset = MaxDataset(val_data_ID)
+    dataloader_val_ID = DataLoader(
+        val_ID_dataset, 
+        batch_size=batch_size, 
+        shuffle=True, 
+        collate_fn=collate_max_data
+    )
+    
+    #validation on OOD data
+    val_data_OOD = make_dataset(1028, ood_len_seq)
+    val_OOD_dataset = MaxDataset(val_data_OOD)
+    dataloader_val_OOD = DataLoader(
+        val_OOD_dataset, 
         batch_size=batch_size, 
         shuffle=True, 
         collate_fn=collate_max_data
@@ -172,11 +192,11 @@ if __name__ == '__main__':
         #model
         embedding = nn.Embedding(30, d_emb).to(device)
         model = SelfAttnLayer(d_emb, softmax=logits_translation).to(device)
-        optimizer = optim.AdamW(list(model.parameters()) + list(embedding.parameters()), lr=1e-4)
+        optimizer = optim.AdamW(list(model.parameters()) + list(embedding.parameters()), lr=1e-3)
         loss_fn = nn.MSELoss()
 
         for epoch in range(epochs):
-            total_loss = 0
+            train_loss, val_ID_loss, val_OOD_loss = 0, 0, 0
             for xs, ys in dataloader:
                 xs = xs.to(device)
                 ys = ys.to(device)
@@ -191,14 +211,35 @@ if __name__ == '__main__':
                 
                 loss.backward()
                 optimizer.step()
-                total_loss += loss.item()
+                train_loss += loss.item()
 
-                #TODO:
-                #val
-                #model.eval()
-                #...
+            #val
+            model.eval()
+            for xs, ys in dataloader_val_ID: #in distribution
+                xs = xs.to(device)
+                ys = ys.to(device)
+                optimizer.zero_grad()
+                
+                emb = embedding(xs)
+                out = model(emb)
+                pred = out[:, -1, 0]
+                
+                loss = loss_fn(pred, ys.float())
+                val_ID_loss += loss.item()
+
+            for xs, ys in dataloader_val_OOD: #out of distribution
+                xs = xs.to(device)
+                ys = ys.to(device)
+                optimizer.zero_grad()
+                
+                emb = embedding(xs)
+                out = model(emb)
+                pred = out[:, -1, 0]
+                
+                loss = loss_fn(pred, ys.float())
+                val_OOD_loss += loss.item() 
             
-            print(f'Epoch {epoch+1} | Train Loss: {total_loss:.4f}')# | Val Loss: {val_loss:.4f}')
+            print(f'Epoch {epoch+1} | Train Loss: {train_loss:.4f} | Val Loss (in dist): {val_ID_loss:.4f} | Val Loss (OOD): {val_OOD_loss:.4f}')
 
         print(f'Time to train using {logits_translation}: {time.time() - start}')
         plot_max_retrieval_attention(model, embedding, device, results_folder + logits_translation)
