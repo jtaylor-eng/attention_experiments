@@ -86,6 +86,7 @@ class StieltjesTransform(CustomSoftmaxFn):
             shifted_logits=x_i,
             eps=eps,
             q=q,
+            dim=dim,
             lb=lb,
             ub=ub
         )
@@ -135,6 +136,7 @@ class AdaptiveSoftmax(CustomSoftmaxFn):
 
 
 """Sample replacement for Softmax"""
+#TODO: not differentiable - not smooth, mostly a placeholder idea anyway
 class TopPSoftmax(CustomSoftmaxFn):
     def translate_logits(
         self,

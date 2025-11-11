@@ -1,5 +1,4 @@
 #Crux of the research: evaluating alternate softmax functions within attention blocks
-
 #NOTE: utils.TransformerConfig requires a customsoftmaxfn object to use in transfomer training. 
 
 import torch
@@ -7,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from abc import ABC, abstractmethod
 
-"""Provide uniform interface to use alternate softmax fns / alternatives."""
+"""Provide uniform interface to use alternate softmax fns"""
 class CustomSoftmaxFn(nn.Module, ABC):
     def __init__(self):
         super().__init__()
@@ -16,22 +15,91 @@ class CustomSoftmaxFn(nn.Module, ABC):
     def translate_logits(
         self,
         logits: torch.Tensor,
-        dim: int
+        dim: int,
+        **kwargs,
     ) -> torch.Tensor:
         pass
 
 
-#Just torch.nn.functional.softmax
+"""
+Just torch.nn.functional.softmax
+
+In our definition of argsoftmax:
+argmax of y within delta_n: x^Ty + (1/beta) H(y)
+where delta_n is set of all y within euclidean n space, where all within y are >= 0 and sum(y) = 1
+"""
 class TraditionalSoftmax(CustomSoftmaxFn):
     def translate_logits(self, logits, dim): return F.softmax(logits, dim=dim)
 
-class StieltjesTransform(CustomSoftmaxFn):
-    def translate_logits(self, logits, dim):
-        #TODO:
-        ...
+"""
+Stieltjes transform as introduced, using binary search, 1 / (lambda_q - x_i)^q
 
-#Adapted from softmax is not enough paper (from JAX implementation)
+In our variatonal definition:
+argmax of y within delta_n: x^Ty - sum over i: (log y_i)
+where delta_n is set of all y within euclidean n space, where all within y are >= 0 and sum(y) = 1
+
+The solution to this optimization is:
+(1 / (lambda_1 - x_i)^q) = (lambda_1 - x_i)^-q 
+
+We can alternatively derive another regularizer: 
+    (-q/(q-1) sum over i: y_i^(1-1/q))
+where the solution to this optimazation is:
+(1 / (lambda_1 - x_i)^q)  = (lambda_1 - x_i)^-q
+"""
+class StieltjesTransform(CustomSoftmaxFn):
+    def _line_search_bs(self, num_iter, shifted_logits, eps, q, dim, lb, ub):
+        for _ in range(num_iter):
+            mid = (lb + ub) / 2.0
+            
+            prob_sum = torch.sum(
+                torch.pow((mid - shifted_logits).clamp(min=eps), -q),
+                dim=dim,
+                keepdim=True
+            ) - 1
+            
+            #f_mid > 0 (sum > 1), increase lambda
+            lb = torch.where(prob_sum > 0, mid, lb)
+            
+            #f_mid <= 0 (sum <= 1), decrease lambda
+            ub = torch.where(prob_sum <= 0, mid, ub)
+
+        return lb, ub
+
+    def translate_logits(
+        self,
+        logits,
+        dim,
+        q: int = 1,
+        num_iter: int = 32,
+        eps: float = 1e-9,
+    ) -> torch.Tensor:
+        """Calculates 1 / (lambda_q - x_i)^q"""
+        x_max = torch.max(logits, dim=dim, keepdim=True).values
+        x_i = logits - x_max
+
+        # line search bounds, will be found from _line_search
+        lb = torch.full_like(x_max, eps)
+        ub = torch.full_like(x_max, logits.shape[dim] ** (1.0/q))
+
+        lb, ub = self._line_search_bs(
+            num_iter=num_iter,
+            shifted_logits=x_i,
+            eps=eps,
+            q=q,
+            dim=dim,
+            lb=lb,
+            ub=ub
+        )
+        lambda_1 = (lb + ub) / 2.0
+        
+        # 1 / (lambda_q - x_i)^q
+        return torch.pow((lambda_1 - x_i).clamp(min=eps), -q)
+        
+
+"""Adapted from softmax is not enough paper (from JAX implementation)"""
 class AdaptiveSoftmax(CustomSoftmaxFn):
+    #I'd like to allow coeffs as a kwarg to translate_logits
+    #but need to register_buffer for efficiency
     def __init__(self, coeffs=None):
         super().__init__()
         if coeffs is None: coeffs = [-0.037, 0.481, -2.3, 4.917, -1.791]
@@ -41,8 +109,7 @@ class AdaptiveSoftmax(CustomSoftmaxFn):
     @staticmethod
     def _polyval_horner(coeffs: torch.Tensor, x: torch.Tensor) -> torch.Tensor:
         out = torch.zeros_like(x, dtype=torch.float32)
-        for c in coeffs:
-            out = out * x + c
+        for c in coeffs: out = out * x + c
         return out
 
     def translate_logits(self, logits: torch.Tensor, dim: int) -> torch.Tensor:
@@ -68,32 +135,31 @@ class AdaptiveSoftmax(CustomSoftmaxFn):
         return F.softmax(logits_scaled, dim=dim)
 
 
-#Sample replacement for Softmax
-class TopKSoftmax(CustomSoftmaxFn):
-    def __init__(self, top_k_pct=0.1, max_sharp_tokens=10, smoothing_factor=0.1):
-        super().__init__()
-        self.top_k_pct = float(top_k_pct)
-        self.max_sharp_tokens = int(max_sharp_tokens)
-        self.smoothing_factor = float(smoothing_factor)
-
-    def translate_logits(self, logits: torch.Tensor, dim: int) -> torch.Tensor:
-        # Expect logits of shape [..., seq_len] along the softmax dim
+"""Sample replacement for Softmax"""
+#TODO: not differentiable - not smooth, mostly a placeholder idea anyway
+class TopPSoftmax(CustomSoftmaxFn):
+    def translate_logits(
+        self,
+        logits: torch.Tensor,
+        dim: int,
+        top_p_pct: float = 0.1,
+        max_sharp_tokens: int =10,
+        smoothing_factor: float = 0.1,
+    ) -> torch.Tensor:
         seq_len = logits.size(dim)
-        top_k = max(1, int(seq_len * self.top_k_pct))
-        top_k = min(self.max_sharp_tokens, top_k)
+        top_k = max(1, int(seq_len * top_p_pct))
+        top_k = min(max_sharp_tokens, top_k)
 
-        # topk along the 'dim' dimension; torch.topk requires dim param
         top_k_values, top_k_indices = torch.topk(logits, top_k, dim=dim, largest=True, sorted=True)
 
-        # mask for top-k positions
+        #mask for top-k positions
         top_k_mask = torch.zeros_like(logits, dtype=torch.bool)
-        # scatter True into positions
         top_k_mask.scatter_(dim, top_k_indices, True)
 
-        # softmax over the top-k values (along last axis of top_k_values which corresponds to dim)
+        #softmax over the top-k values
         topk_soft = F.softmax(top_k_values, dim=-1).to(logits.dtype)
 
-        # remaining weights: set top-k positions to -inf so softmax ignores them
+        #remaining: set top-k positions to -inf so softmax ignores them
         neg_inf = torch.finfo(logits.dtype).min
         remaining_logits = logits.masked_fill(top_k_mask, neg_inf)
         remaining_soft = F.softmax(remaining_logits, dim=dim)
@@ -103,6 +169,4 @@ class TopKSoftmax(CustomSoftmaxFn):
         final.scatter_(dim, top_k_indices, topk_soft)
 
         remaining_masked = remaining_soft.masked_fill(top_k_mask, 0.0)
-        final = final * (1.0 - self.smoothing_factor) + remaining_masked * self.smoothing_factor
-
-        return final
+        return final * (1.0 - smoothing_factor) + remaining_masked * smoothing_factor
